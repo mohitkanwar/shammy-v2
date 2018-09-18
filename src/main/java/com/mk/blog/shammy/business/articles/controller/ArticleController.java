@@ -1,7 +1,7 @@
-package com.mk.blog.shammy.articles.controller;
+package com.mk.blog.shammy.business.articles.controller;
 
-import com.mk.blog.shammy.articles.model.Article;
-import com.mk.blog.shammy.articles.service.ArticleService;
+import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
+import com.mk.blog.shammy.business.articles.service.IArticleService;
 import com.mk.blog.shammy.framework.controller.ListResponse;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,32 +15,31 @@ import java.util.Optional;
 public class ArticleController {
 
     @Autowired
-    private ArticleService service;
+    private IArticleService service;
 
     @GetMapping("/article/{id}")
-    public Article getArticleById(@PathVariable long id){
-        Article article = null;
+    public ArticleDTO getArticleById(@PathVariable long id){
+        ArticleDTO article = null;
         try{
-            Optional<Article> articleById = service.getArticleById(id);
+            Optional<ArticleDTO> articleById = service.getArticleById(id);
             if(articleById.isPresent()){
                 article = articleById.get();
             }
             else {
-                article = new Article();
+                article = new ArticleDTO();
             }
         }
         catch (RuntimeException e){
-            article = new Article();
+            article = new ArticleDTO();
         }
         return article;
     }
 
     @GetMapping("/article/list")
-    public ListResponse<Article> getArticles(){
-        ListResponse<Article> response = new ListResponse<>();
+    public ListResponse<ArticleDTO> getArticles(){
+        ListResponse<ArticleDTO> response = new ListResponse<>();
         try{
-            List<Article> articles = service.getArticles();
-
+            List<ArticleDTO> articles = service.getArticles();
             response.setStatus(StatusResponse.SUCCESS);
             response.setDataList(articles);
         }
@@ -51,7 +50,26 @@ public class ArticleController {
         return response;
     }
     @PostMapping("/article")
-    public StatusResponse createArticle(@RequestBody Article article){
+    public StatusResponse createArticle(@RequestBody ArticleDTO article){
+        try{
+            service.save(article);
+            return StatusResponse.SUCCESS;
+        }catch (RuntimeException e){
+            return StatusResponse.FAILURE;
+        }
+    }
+    @DeleteMapping("/article/{id}")
+    public StatusResponse deleteArticle(@PathVariable long id){
+        try{
+            service.delete(id);
+            return StatusResponse.SUCCESS;
+        }catch (RuntimeException e){
+            return StatusResponse.FAILURE;
+        }
+    }
+
+    @PutMapping("/article/{id}")
+    public StatusResponse updateArticle(@RequestBody ArticleDTO article){
         try{
             service.save(article);
             return StatusResponse.SUCCESS;

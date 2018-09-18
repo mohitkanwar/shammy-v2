@@ -1,8 +1,8 @@
-package com.mk.blog.shammy.articles.repository;
+package com.mk.blog.shammy.business.articles.repository;
 
-import com.mk.blog.shammy.articles.model.Article;
+import com.mk.blog.shammy.business.articles.model.ArticleEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ArticleRepository  extends CrudRepository<Article, Long> {
+public interface IArticleRepository extends CrudRepository<ArticleEntity, Long> {
 
 }

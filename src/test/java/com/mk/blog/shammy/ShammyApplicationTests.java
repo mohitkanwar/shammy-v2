@@ -11,6 +11,8 @@ public class ShammyApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		String[] a = {};
+		ShammyApplication.main(a);
 	}
 
 }

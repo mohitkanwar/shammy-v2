@@ -1,6 +1,5 @@
-package com.mk.blog.shammy.defaultcorporate.articles.entity;
+package com.mk.blog.shammy.business.articles.model;
 
-import com.mk.blog.shammy.business.articles.model.AbstractArticleEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "MASTER_ARTICLE")
-public class ArticleEntity extends AbstractArticleEntity {
+public class ArticleEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;

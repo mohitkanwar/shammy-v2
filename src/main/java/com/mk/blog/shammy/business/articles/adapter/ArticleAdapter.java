@@ -1,19 +1,17 @@
-package com.mk.blog.shammy.defaultcorporate.articles.adapter;
+package com.mk.blog.shammy.business.articles.adapter;
 
 
-import com.mk.blog.shammy.business.articles.dto.AbstractArticleDto;
-import com.mk.blog.shammy.business.articles.model.AbstractArticleEntity;
-import com.mk.blog.shammy.defaultcorporate.articles.dto.ArticleDTO;
-import com.mk.blog.shammy.defaultcorporate.articles.entity.ArticleEntity;
+import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
+import com.mk.blog.shammy.business.articles.model.ArticleEntity;
 import com.mk.blog.shammy.framework.adapters.DtoToEntityAdapter;
 import com.mk.blog.shammy.framework.adapters.EntityToDtoAdapter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ArticleAdapter implements EntityToDtoAdapter<AbstractArticleEntity, AbstractArticleDto>, DtoToEntityAdapter<AbstractArticleDto,AbstractArticleEntity> {
+public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, ArticleDTO>, DtoToEntityAdapter<ArticleDTO,ArticleEntity> {
 
     @Override
-    public ArticleEntity getEntity(AbstractArticleDto d) {
+    public ArticleEntity getEntity(ArticleDTO d) {
         ArticleEntity entity = new ArticleEntity();
         entity.setId(d.getId());
         entity.setTitle(d.getTitle());
@@ -28,7 +26,7 @@ public class ArticleAdapter implements EntityToDtoAdapter<AbstractArticleEntity,
     }
 
     @Override
-    public ArticleDTO getDto(AbstractArticleEntity entity) {
+    public ArticleDTO getDto(ArticleEntity entity) {
         ArticleDTO dto = new ArticleDTO();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());

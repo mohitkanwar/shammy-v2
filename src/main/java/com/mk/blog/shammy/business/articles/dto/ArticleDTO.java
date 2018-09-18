@@ -1,10 +1,9 @@
-package com.mk.blog.shammy.defaultcorporate.articles.dto;
+package com.mk.blog.shammy.business.articles.dto;
 
-import com.mk.blog.shammy.business.articles.dto.AbstractArticleDto;
 import lombok.Data;
 
 @Data
-public class ArticleDTO extends AbstractArticleDto {
+public class ArticleDTO  {
     private Long id;
     private String title;
     private String body;
