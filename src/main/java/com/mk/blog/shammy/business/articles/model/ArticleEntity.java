@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "MASTER_ARTICLE")
 public class ArticleEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String body;

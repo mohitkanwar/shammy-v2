@@ -9,10 +9,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class ShammyApplicationTests {
 
-	@Test
-	public void contextLoads() {
-		String[] a = {};
-		ShammyApplication.main(a);
-	}
+    @Test
+    public void contextLoads() {
+        String[] a = {};
+        ShammyApplication.main(a);
+    }
 
 }

@@ -18,62 +18,61 @@ public class ArticleController {
     private IArticleService service;
 
     @GetMapping("/article/{id}")
-    public ArticleDTO getArticleById(@PathVariable long id){
+    public ArticleDTO getArticleById(@PathVariable long id) {
         ArticleDTO article = null;
-        try{
+        try {
             Optional<ArticleDTO> articleById = service.getArticleById(id);
-            if(articleById.isPresent()){
+            if (articleById.isPresent()) {
                 article = articleById.get();
-            }
-            else {
+            } else {
                 article = new ArticleDTO();
             }
-        }
-        catch (RuntimeException e){
+        } catch (RuntimeException e) {
             article = new ArticleDTO();
         }
         return article;
     }
 
     @GetMapping("/article/list")
-    public ListResponse<ArticleDTO> getArticles(){
+    public ListResponse<ArticleDTO> getArticles() {
         ListResponse<ArticleDTO> response = new ListResponse<>();
-        try{
+        try {
             List<ArticleDTO> articles = service.getArticles();
             response.setStatus(StatusResponse.SUCCESS);
             response.setDataList(articles);
-        }
-        catch (RuntimeException e){
+        } catch (RuntimeException e) {
             response.setStatus(StatusResponse.FAILURE);
             response.setDataList(new ArrayList<>());
         }
         return response;
     }
+
     @PostMapping("/article")
-    public StatusResponse createArticle(@RequestBody ArticleDTO article){
-        try{
+    public StatusResponse createArticle(@RequestBody ArticleDTO article) {
+        try {
             service.save(article);
             return StatusResponse.SUCCESS;
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return StatusResponse.FAILURE;
         }
     }
+
     @DeleteMapping("/article/{id}")
-    public StatusResponse deleteArticle(@PathVariable long id){
-        try{
+    public StatusResponse deleteArticle(@PathVariable long id) {
+        try {
             service.delete(id);
             return StatusResponse.SUCCESS;
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return StatusResponse.FAILURE;
         }
     }
 
     @PutMapping("/article/{id}")
-    public StatusResponse updateArticle(@RequestBody ArticleDTO article){
-        try{
+    public StatusResponse updateArticle(@RequestBody ArticleDTO article) {
+        try {
             service.save(article);
             return StatusResponse.SUCCESS;
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return StatusResponse.FAILURE;
         }
     }

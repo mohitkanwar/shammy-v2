@@ -35,7 +35,7 @@ public class ArticleIntegrationTest {
         articleDTO.setCreateDate(new Date().toString());
         articleDTO.setSummary("summary");
 
-        StatusResponse response = this.restTemplate.postForObject("http://localhost:" + port + "/article",articleDTO,
+        StatusResponse response = this.restTemplate.postForObject("http://localhost:" + port + "/article", articleDTO,
                 StatusResponse.class);
         Assertions.assertThat(response.equals(StatusResponse.SUCCESS));
 
@@ -44,7 +44,7 @@ public class ArticleIntegrationTest {
         Assertions.assertThat(articleFromController.equals(articleDTO));
 
         this.restTemplate.delete("http://localhost:" + port + "/article/2");
-        Assertions.assertThat( this.restTemplate.getForObject("http://localhost:" + port + "/article/2",
+        Assertions.assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/article/2",
                 ArticleDTO.class).equals(new ArticleDTO()));
     }
 }

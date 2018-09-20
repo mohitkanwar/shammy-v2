@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ArticleAdapterTest {
@@ -21,14 +20,16 @@ public class ArticleAdapterTest {
     public void getEntityTest() {
         ArticleDTO dto = getArticleDTO();
         ArticleEntity entity = articleAdapter.getEntity(dto);
-        Assert.assertEquals(getArticleEntity(),entity);
+        Assert.assertEquals(getArticleEntity(), entity);
     }
+
     @Test
     public void getDtoTest() {
         ArticleEntity entity = getArticleEntity();
         ArticleDTO dto = articleAdapter.getDto(entity);
-        Assert.assertEquals(getArticleDTO(),dto);
+        Assert.assertEquals(getArticleDTO(), dto);
     }
+
     private ArticleDTO getArticleDTO() {
         ArticleDTO dto = new ArticleDTO();
         dto.setId(9l);
@@ -42,6 +43,7 @@ public class ArticleAdapterTest {
         dto.setLastModifiedDate("last modified date");
         return dto;
     }
+
     private ArticleEntity getArticleEntity() {
         ArticleEntity entity = new ArticleEntity();
         entity.setId(9l);

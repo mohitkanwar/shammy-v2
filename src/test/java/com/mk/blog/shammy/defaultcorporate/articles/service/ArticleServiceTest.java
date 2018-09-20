@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -33,6 +32,7 @@ public class ArticleServiceTest {
     @Test
     public void save() {
     }
+
     private ArticleDTO getArticleDTO() {
         ArticleDTO dto = new ArticleDTO();
         dto.setId(9l);
@@ -46,6 +46,7 @@ public class ArticleServiceTest {
         dto.setLastModifiedDate("last modified date");
         return dto;
     }
+
     private ArticleEntity getArticleEntity() {
         ArticleEntity entity = new ArticleEntity();
         entity.setId(9l);
@@ -59,17 +60,18 @@ public class ArticleServiceTest {
         entity.setLastModifiedDate("last modified date");
         return entity;
     }
+
     @Test
     public void getArticles() {
         List<ArticleEntity> articleEntitiesList = new ArrayList<>();
-        ArticleEntity entity =  getArticleEntity();
+        ArticleEntity entity = getArticleEntity();
 
         articleEntitiesList.add(entity);
         when(repository.findAll()).thenReturn(articleEntitiesList);
         when(articleAdapter.getDto(getArticleEntity())).thenReturn(getArticleDTO());
         List<ArticleDTO> output = service.getArticles();
-        Assert.assertEquals(1,output.size());
-        Assert.assertEquals(getArticleDTO(),output.get(0));
+        Assert.assertEquals(1, output.size());
+        Assert.assertEquals(getArticleDTO(), output.get(0));
     }
 
     @Test
@@ -77,7 +79,7 @@ public class ArticleServiceTest {
         when(repository.findById(1l)).thenReturn(Optional.of(getArticleEntity()));
         when(articleAdapter.getDto(getArticleEntity())).thenReturn(getArticleDTO());
         Optional<ArticleDTO> op = service.getArticleById(1l);
-        Assert.assertEquals(Optional.of(getArticleDTO()),op);
+        Assert.assertEquals(Optional.of(getArticleDTO()), op);
     }
 
     @Test

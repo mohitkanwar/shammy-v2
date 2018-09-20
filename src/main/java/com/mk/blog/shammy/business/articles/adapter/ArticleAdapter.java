@@ -8,7 +8,7 @@ import com.mk.blog.shammy.framework.adapters.EntityToDtoAdapter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, ArticleDTO>, DtoToEntityAdapter<ArticleDTO,ArticleEntity> {
+public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, ArticleDTO>, DtoToEntityAdapter<ArticleDTO, ArticleEntity> {
 
     @Override
     public ArticleEntity getEntity(ArticleDTO d) {

@@ -32,9 +32,10 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         Optional<ArticleDTO> optionalArticleDTO = Optional.of(mockArticle);
         Mockito.when(service.getArticleById(1)).thenReturn(optionalArticleDTO);
-       ArticleDTO articleDTO = controller.getArticleById(1);
-        Assert.assertEquals(mockArticle,articleDTO);
+        ArticleDTO articleDTO = controller.getArticleById(1);
+        Assert.assertEquals(mockArticle, articleDTO);
     }
+
     @Test
     public void getArticleByIdExceptionCase() {
         ArticleDTO mockArticle = new ArticleDTO();
@@ -43,7 +44,7 @@ public class ArticleControllerTest {
         Optional<ArticleDTO> optionalArticleDTO = Optional.of(mockArticle);
         Mockito.when(service.getArticleById(1)).thenThrow(new NullPointerException());
         ArticleDTO articleDTO = controller.getArticleById(1);
-        Assert.assertEquals(new ArticleDTO(),articleDTO);
+        Assert.assertEquals(new ArticleDTO(), articleDTO);
     }
 
     @Test
@@ -54,11 +55,12 @@ public class ArticleControllerTest {
         List<ArticleDTO> articleDTOList = new ArrayList<>();
         articleDTOList.add(mockArticle);
         Mockito.when(service.getArticles()).thenReturn(articleDTOList);
-        ListResponse<ArticleDTO>response= controller.getArticles();
-        Assert.assertEquals(StatusResponse.SUCCESS,response.getStatus());
+        ListResponse<ArticleDTO> response = controller.getArticles();
+        Assert.assertEquals(StatusResponse.SUCCESS, response.getStatus());
         Assert.assertEquals(articleDTOList, response.getDataList());
-        Assert.assertEquals(1,response.getSize());
+        Assert.assertEquals(1, response.getSize());
     }
+
     @Test
     public void getArticlesExceptionCase() {
         ArticleDTO mockArticle = new ArticleDTO();
@@ -67,11 +69,12 @@ public class ArticleControllerTest {
         List<ArticleDTO> articleDTOList = new ArrayList<>();
         articleDTOList.add(mockArticle);
         Mockito.when(service.getArticles()).thenThrow(new NullPointerException());
-        ListResponse<ArticleDTO>response= controller.getArticles();
-        Assert.assertEquals(StatusResponse.FAILURE,response.getStatus());
+        ListResponse<ArticleDTO> response = controller.getArticles();
+        Assert.assertEquals(StatusResponse.FAILURE, response.getStatus());
         Assert.assertEquals(new ArrayList<>(), response.getDataList());
-        Assert.assertEquals(0,response.getSize());
+        Assert.assertEquals(0, response.getSize());
     }
+
     @Test
     public void createArticle() {
         ArticleDTO mockArticle = new ArticleDTO();
@@ -79,8 +82,9 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         Mockito.doNothing().when(service).save(mockArticle);
         StatusResponse response = controller.createArticle(mockArticle);
-        Assert.assertEquals(StatusResponse.SUCCESS,response);
+        Assert.assertEquals(StatusResponse.SUCCESS, response);
     }
+
     @Test
     public void createArticleExceptionCase() {
         ArticleDTO mockArticle = new ArticleDTO();
@@ -88,7 +92,7 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         Mockito.doThrow(new NullPointerException()).when(service).save(mockArticle);
         StatusResponse response = controller.createArticle(mockArticle);
-        Assert.assertEquals(StatusResponse.FAILURE,response);
+        Assert.assertEquals(StatusResponse.FAILURE, response);
     }
 
     @Test
@@ -98,8 +102,9 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         Mockito.doNothing().when(service).delete(1l);
         StatusResponse response = controller.deleteArticle(1l);
-        Assert.assertEquals(StatusResponse.SUCCESS,response);
+        Assert.assertEquals(StatusResponse.SUCCESS, response);
     }
+
     @Test
     public void deleteArticleException() {
         ArticleDTO mockArticle = new ArticleDTO();
@@ -107,7 +112,7 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         Mockito.doThrow(new NullPointerException()).when(service).delete(1l);
         StatusResponse response = controller.deleteArticle(1l);
-        Assert.assertEquals(StatusResponse.FAILURE,response);
+        Assert.assertEquals(StatusResponse.FAILURE, response);
     }
 
     @Test
@@ -117,8 +122,9 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         Mockito.doNothing().when(service).save(mockArticle);
         StatusResponse response = controller.updateArticle(mockArticle);
-        Assert.assertEquals(StatusResponse.SUCCESS,response);
+        Assert.assertEquals(StatusResponse.SUCCESS, response);
     }
+
     @Test
     public void updateArticleException() {
         ArticleDTO mockArticle = new ArticleDTO();
@@ -126,6 +132,6 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         Mockito.doThrow(new NullPointerException()).when(service).save(mockArticle);
         StatusResponse response = controller.updateArticle(mockArticle);
-        Assert.assertEquals(StatusResponse.FAILURE,response);
+        Assert.assertEquals(StatusResponse.FAILURE, response);
     }
 }
