@@ -10,6 +10,7 @@ public class ListResponse<T> {
     private List<T> dataList;
     private int size;
     private StatusResponse status;
+    private ErrorResponse error;
 
     public void setDataList(final List<T> dataList) {
         this.dataList = dataList == null ? new ArrayList<>(0) : dataList;

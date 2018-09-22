@@ -2,6 +2,7 @@ package com.mk.blog.shammy.business.articles.controller;
 
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
+import com.mk.blog.shammy.framework.controller.DataResponse;
 import com.mk.blog.shammy.framework.controller.ListResponse;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +19,23 @@ public class ArticleController {
     private IArticleService service;
 
     @GetMapping("/article/{id}")
-    public ArticleDTO getArticleById(@PathVariable long id) {
-        ArticleDTO article = null;
+    public DataResponse<ArticleDTO> getArticleById(@PathVariable long id) {
+        DataResponse<ArticleDTO> response = new DataResponse<>();
+
         try {
             Optional<ArticleDTO> articleById = service.getArticleById(id);
             if (articleById.isPresent()) {
+                ArticleDTO article = null;
                 article = articleById.get();
+                response.setData(article);
+                response.setStatus(StatusResponse.SUCCESS);
             } else {
-                article = new ArticleDTO();
+                response.setStatus(StatusResponse.FAILURE);
             }
         } catch (RuntimeException e) {
-            article = new ArticleDTO();
+            response.setStatus(StatusResponse.FAILURE);
         }
-        return article;
+        return response;
     }
 
     @GetMapping("/article/list")

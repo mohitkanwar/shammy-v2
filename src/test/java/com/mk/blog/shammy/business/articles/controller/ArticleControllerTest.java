@@ -2,6 +2,7 @@ package com.mk.blog.shammy.business.articles.controller;
 
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
+import com.mk.blog.shammy.framework.controller.DataResponse;
 import com.mk.blog.shammy.framework.controller.ListResponse;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
 import org.junit.Assert;
@@ -32,8 +33,9 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         Optional<ArticleDTO> optionalArticleDTO = Optional.of(mockArticle);
         Mockito.when(service.getArticleById(1)).thenReturn(optionalArticleDTO);
-        ArticleDTO articleDTO = controller.getArticleById(1);
-        Assert.assertEquals(mockArticle, articleDTO);
+        DataResponse<ArticleDTO> articleResponse = controller.getArticleById(1);
+        Assert.assertEquals(StatusResponse.SUCCESS,articleResponse.getStatus());
+        Assert.assertEquals(mockArticle, articleResponse.getData());
     }
 
     @Test
@@ -43,8 +45,8 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         Optional<ArticleDTO> optionalArticleDTO = Optional.of(mockArticle);
         Mockito.when(service.getArticleById(1)).thenThrow(new NullPointerException());
-        ArticleDTO articleDTO = controller.getArticleById(1);
-        Assert.assertEquals(new ArticleDTO(), articleDTO);
+        DataResponse<ArticleDTO> articleResponse = controller.getArticleById(1);
+        Assert.assertEquals(StatusResponse.FAILURE, articleResponse.getStatus());
     }
 
     @Test
