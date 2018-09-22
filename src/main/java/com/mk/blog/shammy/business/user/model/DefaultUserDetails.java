@@ -5,20 +5,48 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "MASTER_USER_DETAILS")
+@Table(name = "USERS")
 public class DefaultUserDetails implements UserDetails {
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<DefaultAuthority> authorities;
-    private String password;
+
     @Id
+    private long id;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "USER_AUTHORITIES",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns= {@JoinColumn(name = "authority_id")}
+    )
+    private List< DefaultAuthority> authorities;
+    private String password;
+    @Column(unique=true)
     private String username;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DefaultUserDetails that = (DefaultUserDetails) o;
+        return getId() == that.getId() &&
+                isAccountNonExpired() == that.isAccountNonExpired() &&
+                isAccountNonLocked() == that.isAccountNonLocked() &&
+                isCredentialsNonExpired() == that.isCredentialsNonExpired() &&
+                isEnabled() == that.isEnabled() &&
+                Objects.equals(getAuthorities(), that.getAuthorities()) &&
+                Objects.equals(getPassword(), that.getPassword()) &&
+                Objects.equals(getUsername(), that.getUsername());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getAuthorities(), getPassword(), getUsername(), isAccountNonExpired(), isAccountNonLocked(), isCredentialsNonExpired(), isEnabled());
+    }
 }
