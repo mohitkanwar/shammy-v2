@@ -1,13 +1,11 @@
 package com.mk.blog.shammy.business.user.model;
 
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Data
@@ -19,11 +17,11 @@ public class DefaultUserDetails implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "USER_AUTHORITIES",
             joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns= {@JoinColumn(name = "authority_id")}
+            inverseJoinColumns = {@JoinColumn(name = "authority_id")}
     )
-    private List< DefaultAuthority> authorities;
+    private List<DefaultAuthority> authorities;
     private String password;
-    @Column(unique=true)
+    @Column(unique = true)
     private String username;
     private boolean accountNonExpired;
     private boolean accountNonLocked;

@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DefaultPasswordEncoderServiceImplTest {
@@ -17,8 +18,8 @@ public class DefaultPasswordEncoderServiceImplTest {
 
     @Test
     public void encode() {
-       String encodedPwd =  passwordEncoder.encode("test");
-       assertTrue(passwordEncoder.matches("test",encodedPwd));
+        String encodedPwd = passwordEncoder.encode("test");
+        assertTrue(passwordEncoder.matches("test", encodedPwd));
     }
 
 }

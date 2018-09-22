@@ -5,7 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DefaultUserDetailsTest {
@@ -32,7 +33,7 @@ public class DefaultUserDetailsTest {
         userDetails2.setPassword("pwd");
         userDetails2.setUsername("uname");
 
-        assertEquals(userDetails,userDetails2);
-        assertEquals(userDetails.hashCode(),userDetails2.hashCode());
+        assertEquals(userDetails, userDetails2);
+        assertEquals(userDetails.hashCode(), userDetails2.hashCode());
     }
 }

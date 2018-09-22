@@ -4,13 +4,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -21,8 +17,9 @@ public class WebSecurityConfigTest {
     private AuthenticationManagerBuilder builder;
     @Autowired
     private UserDetailsService userDetailsService;
+
     @Test
-    public void configure() throws Exception{
+    public void configure() throws Exception {
         config.configure(builder);
     }
 }
