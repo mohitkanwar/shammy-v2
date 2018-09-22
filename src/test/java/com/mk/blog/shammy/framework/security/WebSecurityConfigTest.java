@@ -23,7 +23,6 @@ public class WebSecurityConfigTest {
     private UserDetailsService userDetailsService;
     @Test
     public void configure() throws Exception{
-        //when(builder.userDetailsService(userDetailsService)).thenThrow(new Exception());
         config.configure(builder);
     }
 }
