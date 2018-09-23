@@ -1,10 +1,13 @@
 package com.mk.blog.shammy.business.articles.controller;
 
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
+import com.mk.blog.shammy.business.articles.errors.ArticleErrors;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
 import com.mk.blog.shammy.framework.controller.DataResponse;
+import com.mk.blog.shammy.framework.controller.ErrorResponse;
 import com.mk.blog.shammy.framework.controller.ListResponse;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
+import com.mk.blog.shammy.framework.errors.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +33,17 @@ public class ArticleController {
                 response.setData(article);
                 response.setStatus(StatusResponse.SUCCESS);
             } else {
+                ErrorResponse error = new ErrorResponse();
+                error.setErrorCode(ArticleErrors.ARTICLE_NOT_FOUND_WITH_ID.toString());
+                error.setAdditionalInfo(ArticleErrors.ARTICLE_NOT_FOUND_WITH_ID.getDescription());
+                response.setError(error);
                 response.setStatus(StatusResponse.FAILURE);
             }
         } catch (RuntimeException e) {
+            ErrorResponse error = new ErrorResponse();
+            error.setErrorCode(Errors.WTF.toString());
+            error.setAdditionalInfo(Errors.WTF.getDescription());
+            response.setError(error);
             response.setStatus(StatusResponse.FAILURE);
         }
         return response;
@@ -46,6 +57,10 @@ public class ArticleController {
             response.setStatus(StatusResponse.SUCCESS);
             response.setDataList(articles);
         } catch (RuntimeException e) {
+            ErrorResponse error = new ErrorResponse();
+            error.setErrorCode(Errors.WTF.toString());
+            error.setAdditionalInfo(Errors.WTF.getDescription());
+            response.setError(error);
             response.setStatus(StatusResponse.FAILURE);
             response.setDataList(new ArrayList<>());
         }

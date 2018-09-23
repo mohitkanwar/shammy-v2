@@ -5,6 +5,7 @@ import com.mk.blog.shammy.business.articles.service.IArticleService;
 import com.mk.blog.shammy.framework.controller.DataResponse;
 import com.mk.blog.shammy.framework.controller.ListResponse;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
+import com.mk.blog.shammy.framework.errors.Errors;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,7 +75,8 @@ public class ArticleControllerTest {
         ListResponse<ArticleDTO> response = controller.getArticles();
         Assert.assertEquals(StatusResponse.FAILURE, response.getStatus());
         Assert.assertEquals(new ArrayList<>(), response.getDataList());
-        Assert.assertEquals(0, response.getSize());
+        Assert.assertEquals(Errors.WTF.toString(), response.getError().getErrorCode());
+        Assert.assertEquals(Errors.WTF.getDescription(), response.getError().getAdditionalInfo());
     }
 
     @Test
