@@ -27,6 +27,9 @@ public class DefaultUserDetails implements UserDetails {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+    private String firstName;
+    private String lastName;
+
 
     @Override
     public boolean equals(Object o) {
