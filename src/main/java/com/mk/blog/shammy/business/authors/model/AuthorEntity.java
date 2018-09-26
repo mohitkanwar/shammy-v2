@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,12 +18,16 @@ public class AuthorEntity  {
     private Long id;
     @OneToOne
     private DefaultUserDetails userDetails;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(name = "AUTHOR_ARTICLES",
             joinColumns = {@JoinColumn(name = "author_id")},
             inverseJoinColumns = {@JoinColumn(name = "article_id")}
     )
     private List<ArticleEntity> articles;
+    public AuthorEntity(){
+        setUserDetails(new DefaultUserDetails());
+        setArticles(new ArrayList<>());
+    }
 
 }
 

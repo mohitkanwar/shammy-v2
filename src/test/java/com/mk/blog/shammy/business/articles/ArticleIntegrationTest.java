@@ -2,6 +2,7 @@ package com.mk.blog.shammy.business.articles;
 
 import com.mk.blog.shammy.business.articles.controller.ArticleController;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
+import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -29,7 +30,9 @@ public class ArticleIntegrationTest {
     public void greetingShouldReturnDefaultMessage() throws Exception {
         ArticleDTO articleDTO = new ArticleDTO();
         articleDTO.setId(2l);
-        articleDTO.setAuthorName("Automation Test");
+        AuthorDTO authorDTO = new AuthorDTO();
+        authorDTO.setId(3);
+        articleDTO.setAuthor(authorDTO);
         articleDTO.setBody("Body");
         articleDTO.setCategory("Category");
         articleDTO.setCreateDate(new Date().toString());

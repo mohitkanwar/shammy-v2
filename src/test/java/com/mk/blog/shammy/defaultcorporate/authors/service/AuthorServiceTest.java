@@ -46,7 +46,10 @@ public class AuthorServiceTest {
         articleEntity.setCreateDate(new Date().toString());
         articleEntity.setCategory("category");
         articleEntity.setBody("The article Body");
-        articleEntity.setAuthorName("author's name");
+        AuthorEntity authorEntity = new AuthorEntity();
+        authorEntity.setArticles(new ArrayList<>());
+        authorEntity.setUserDetails(new DefaultUserDetails());
+        articleEntity.setAuthor(authorEntity);
         articleEntity.setId(1l);
         articleList.add(articleEntity);
         mockAuthor.setArticles(articleList);
