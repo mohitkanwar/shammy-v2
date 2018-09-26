@@ -7,6 +7,7 @@ import com.mk.blog.shammy.business.user.model.DefaultAuthority;
 import com.mk.blog.shammy.business.user.model.DefaultUserDetails;
 import com.mk.blog.shammy.framework.adapters.DtoToEntityAdapter;
 import com.mk.blog.shammy.framework.adapters.EntityToDtoAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserAdapter  implements EntityToDtoAdapter<DefaultUserDetails, UserDTO>, DtoToEntityAdapter<UserDTO, DefaultUserDetails> {
+    @Autowired
+    private AuthorityAdapter authorityAdapter;
     @Override
     public DefaultUserDetails getEntity(UserDTO userDTO) {
         DefaultUserDetails entity = new DefaultUserDetails();
@@ -26,13 +29,9 @@ public class UserAdapter  implements EntityToDtoAdapter<DefaultUserDetails, User
         entity.setAccountNonLocked(userDTO.isAccountNonLocked());
         entity.setId(userDTO.getId());
         entity.setAccountNonExpired(userDTO.isAccountNonExpired());
-        List<DefaultAuthority> authorities = userDTO.getAuthorities().stream().map(dto->{
-            DefaultAuthority authority = new DefaultAuthority();
-            authority.setDescription(dto.getDescription());
-            authority.setId(dto.getId());
-            authority.setAuthority(dto.getAuthority());
-            return authority;
-        }).collect(Collectors.toList());
+        List<DefaultAuthority> authorities = userDTO.getAuthorities().stream().map(
+                authorityAdapter::getEntity
+        ).collect(Collectors.toList());
         entity.setAuthorities(authorities);
         return entity;
     }
@@ -49,13 +48,11 @@ public class UserAdapter  implements EntityToDtoAdapter<DefaultUserDetails, User
         userDTO.setAccountNonLocked(d.isAccountNonLocked());
         userDTO.setId(d.getId());
         userDTO.setAccountNonExpired(d.isAccountNonExpired());
-        List<AuthorityDTO> authorities = d.getAuthorities().stream().map(entity->{
-            AuthorityDTO authority = new AuthorityDTO();
-            authority.setDescription(entity.getDescription());
-            authority.setId(entity.getId());
-            authority.setAuthority(entity.getAuthority());
-            return authority;
-        }).collect(Collectors.toList());
+        List<AuthorityDTO> authorities =
+                d.getAuthorities()
+                        .stream()
+                        .map(authorityAdapter::getDto)
+                        .collect(Collectors.toList());
         userDTO.setAuthorities(authorities);
         return userDTO;
     }

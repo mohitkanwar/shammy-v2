@@ -5,6 +5,7 @@ import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
 import com.mk.blog.shammy.business.authors.model.AuthorEntity;
 import com.mk.blog.shammy.business.authors.repository.IAuthorRepository;
 import com.mk.blog.shammy.business.authors.service.IAuthorService;
+import com.mk.blog.shammy.business.user.dto.UserDTO;
 import com.mk.blog.shammy.business.user.model.DefaultAuthority;
 import com.mk.blog.shammy.business.user.model.DefaultUserDetails;
 import org.junit.Test;
@@ -20,6 +21,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -75,5 +78,42 @@ public class AuthorServiceTest {
         assertEquals(dto.getArticles().get(0).getId(),articleList.get(0).getId());
         assertEquals(dto.getUserDTO().getId(),mockAuthor.getUserDetails().getId());
 
+    }
+
+    @Test
+    public void getEmptyAuthor(){
+        when(repository.findById(1l)).thenReturn(Optional.empty());
+       Optional<AuthorDTO> authorDTO = service.getAuthorById(1l);
+       assertEquals(Optional.empty(),authorDTO);
+    }
+
+    @Test
+    public void getAuthors(){
+        List<AuthorEntity> authors = new ArrayList<>();
+        AuthorEntity author = new AuthorEntity();
+        author.setId(20l);
+        author.setUserDetails(new DefaultUserDetails());
+        author.setArticles(new ArrayList<>());
+        authors.add(author);
+
+        when(repository.findAll()).thenReturn(authors);
+        List<AuthorDTO> authorsResult = service.getAuthors();
+        assertEquals(1,authorsResult.size());
+        assertEquals(20l,authorsResult.get(0).getId());
+    }
+    @Test
+    public void saveAuthors(){
+        when(repository.save(any(AuthorEntity.class))).thenReturn(new AuthorEntity());
+        AuthorDTO author = new AuthorDTO();
+        UserDTO userDTO = new UserDTO();
+        userDTO.setAuthorities(new ArrayList<>());
+        author.setUserDTO(userDTO);
+        author.setArticles(new ArrayList<>());
+        service.save(author);
+    }
+    @Test
+    public void deleteAuthors(){
+        doNothing().when(repository).deleteById(1l);
+        service.delete(1l);
     }
 }

@@ -36,6 +36,7 @@ public class AuthorAdapter implements EntityToDtoAdapter<AuthorEntity, AuthorDTO
     @Override
     public AuthorDTO getDto(AuthorEntity d) {
         AuthorDTO authorDTO = new AuthorDTO();
+        authorDTO.setId(d.getId());
         authorDTO.setUserDTO(userAdapter.getDto(d.getUserDetails()));
         authorDTO.setArticles(
                 d.getArticles().stream().map(articleAdapter::getDto).collect(Collectors.toList())
