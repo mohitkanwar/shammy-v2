@@ -1,5 +1,6 @@
 package com.mk.blog.shammy.business.articles.model;
 
+import com.mk.blog.shammy.business.authors.model.AuthorEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +15,9 @@ public class ArticleEntity {
     private String title;
     private String body;
     private String summary;
-    private String authorName;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id")
+    private AuthorEntity author;
     private String createDate;
     private String lastModifiedDate;
     private String tags;

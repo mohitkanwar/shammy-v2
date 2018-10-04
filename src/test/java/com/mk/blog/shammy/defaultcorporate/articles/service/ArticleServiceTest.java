@@ -4,6 +4,8 @@ import com.mk.blog.shammy.business.articles.adapter.ArticleAdapter;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
 import com.mk.blog.shammy.business.articles.repository.IArticleRepository;
+import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
+import com.mk.blog.shammy.business.authors.model.AuthorEntity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +44,8 @@ public class ArticleServiceTest {
         dto.setCreateDate("new create date");
         dto.setCategory("category");
         dto.setTags("tag1,tag2");
-        dto.setAuthorName("author name");
+        AuthorDTO authorDTO = new AuthorDTO();
+        dto.setAuthor(authorDTO);
         dto.setLastModifiedDate("last modified date");
         return dto;
     }
@@ -56,7 +59,8 @@ public class ArticleServiceTest {
         entity.setCreateDate("new create date");
         entity.setCategory("category");
         entity.setTags("tag1,tag2");
-        entity.setAuthorName("author name");
+        AuthorEntity authorEntity = new AuthorEntity();
+        entity.setAuthor(authorEntity);
         entity.setLastModifiedDate("last modified date");
         return entity;
     }

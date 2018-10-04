@@ -2,6 +2,8 @@ package com.mk.blog.shammy.business.articles.adapter;
 
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
+import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
+import com.mk.blog.shammy.business.authors.model.AuthorEntity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,28 +34,28 @@ public class ArticleAdapterTest {
 
     private ArticleDTO getArticleDTO() {
         ArticleDTO dto = new ArticleDTO();
-        dto.setId(9l);
+        dto.setId(9L);
         dto.setTitle("Title");
         dto.setBody("Body");
         dto.setSummary("summary");
         dto.setCreateDate("new create date");
         dto.setCategory("category");
         dto.setTags("tag1,tag2");
-        dto.setAuthorName("author name");
+       // dto.setAuthor(new AuthorDTO());
         dto.setLastModifiedDate("last modified date");
         return dto;
     }
 
     private ArticleEntity getArticleEntity() {
         ArticleEntity entity = new ArticleEntity();
-        entity.setId(9l);
+        entity.setId(9L);
         entity.setTitle("Title");
         entity.setBody("Body");
         entity.setSummary("summary");
         entity.setCreateDate("new create date");
         entity.setCategory("category");
         entity.setTags("tag1,tag2");
-        entity.setAuthorName("author name");
+       // entity.setAuthor(new AuthorEntity());
         entity.setLastModifiedDate("last modified date");
         return entity;
     }

@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,6 +28,12 @@ public class DefaultUserDetails implements UserDetails {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+    private String firstName;
+    private String lastName;
+
+    public DefaultUserDetails(){
+        this.setAuthorities(new ArrayList<>());
+    }
 
     @Override
     public boolean equals(Object o) {

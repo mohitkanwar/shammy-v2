@@ -3,13 +3,17 @@ package com.mk.blog.shammy.business.articles.adapter;
 
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
+import com.mk.blog.shammy.business.authors.adapter.AuthorAdapter;
 import com.mk.blog.shammy.framework.adapters.DtoToEntityAdapter;
 import com.mk.blog.shammy.framework.adapters.EntityToDtoAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, ArticleDTO>, DtoToEntityAdapter<ArticleDTO, ArticleEntity> {
 
+    @Autowired
+    private AuthorAdapter authorAdapter;
     @Override
     public ArticleEntity getEntity(ArticleDTO d) {
         ArticleEntity entity = new ArticleEntity();
@@ -17,7 +21,7 @@ public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, Article
         entity.setTitle(d.getTitle());
         entity.setBody(d.getBody());
         entity.setSummary(d.getSummary());
-        entity.setAuthorName(d.getAuthorName());
+       // entity.setAuthor(authorAdapter.getEntity(d.getAuthor()));
         entity.setCreateDate(d.getCreateDate());
         entity.setLastModifiedDate(d.getLastModifiedDate());
         entity.setTags(d.getTags());
@@ -32,7 +36,7 @@ public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, Article
         dto.setTitle(entity.getTitle());
         dto.setBody(entity.getBody());
         dto.setSummary(entity.getSummary());
-        dto.setAuthorName(entity.getAuthorName());
+       // dto.setAuthor(authorAdapter.getDto(entity.getAuthor()));
         dto.setCreateDate(entity.getCreateDate());
         dto.setLastModifiedDate(entity.getLastModifiedDate());
         dto.setTags(entity.getTags());
