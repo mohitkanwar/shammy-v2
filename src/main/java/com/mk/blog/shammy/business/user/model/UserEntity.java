@@ -11,11 +11,11 @@ import java.util.Objects;
 @Entity
 @Data
 @Table(name = "USERS")
-public class DefaultUserDetails implements UserDetails {
+public class UserEntity implements UserDetails {
 
     @Id
     private long id;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_AUTHORITIES",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_id")}
@@ -31,7 +31,7 @@ public class DefaultUserDetails implements UserDetails {
     private String firstName;
     private String lastName;
 
-    public DefaultUserDetails(){
+    public UserEntity(){
         this.setAuthorities(new ArrayList<>());
     }
 
@@ -39,7 +39,7 @@ public class DefaultUserDetails implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DefaultUserDetails that = (DefaultUserDetails) o;
+        UserEntity that = (UserEntity) o;
         return getId() == that.getId() &&
                 isAccountNonExpired() == that.isAccountNonExpired() &&
                 isAccountNonLocked() == that.isAccountNonLocked() &&

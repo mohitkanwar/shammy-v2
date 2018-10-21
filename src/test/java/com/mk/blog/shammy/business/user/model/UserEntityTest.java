@@ -9,11 +9,11 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DefaultUserDetailsTest {
+public class UserEntityTest {
 
     @Test
     public void equals() {
-        DefaultUserDetails userDetails = new DefaultUserDetails();
+        UserEntity userDetails = new UserEntity();
         userDetails.setAuthorities(null);
         userDetails.setId(1);
         userDetails.setAccountNonExpired(true);
@@ -23,7 +23,7 @@ public class DefaultUserDetailsTest {
         userDetails.setPassword("pwd");
         userDetails.setUsername("uname");
 
-        DefaultUserDetails userDetails2 = new DefaultUserDetails();
+        UserEntity userDetails2 = new UserEntity();
         userDetails2.setAuthorities(null);
         userDetails2.setId(1);
         userDetails2.setAccountNonExpired(true);

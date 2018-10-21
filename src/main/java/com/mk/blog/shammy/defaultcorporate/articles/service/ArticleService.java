@@ -17,18 +17,18 @@ public class ArticleService implements IArticleService {
     @Autowired
     private IArticleRepository repository;
     @Autowired
-    private ArticleAdapter articleAdapter;
+    private ArticleAdapter adapter;
 
     @Override
     public void save(ArticleDTO article) {
-        repository.save(articleAdapter.getEntity(article));
+        repository.save(adapter.getEntity(article));
     }
 
     @Override
     public List<ArticleDTO> getArticles() {
         List<ArticleDTO> articlesList = new ArrayList<>();
         repository.findAll().forEach(entity -> {
-            articlesList.add(articleAdapter.getDto(entity));
+            articlesList.add(adapter.getDto(entity));
         });
         return articlesList;
     }
@@ -38,7 +38,7 @@ public class ArticleService implements IArticleService {
         Optional<ArticleEntity> entity = repository.findById(id);
         ArticleDTO dto = null;
         if (entity.isPresent()) {
-            dto = articleAdapter.getDto(entity.get());
+            dto = adapter.getDto(entity.get());
         }
         return dto == null ? Optional.empty() : Optional.of(dto);
     }

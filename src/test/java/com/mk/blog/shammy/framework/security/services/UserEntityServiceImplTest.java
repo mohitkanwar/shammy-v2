@@ -1,7 +1,7 @@
 package com.mk.blog.shammy.framework.security.services;
 
 import com.mk.blog.shammy.business.user.model.DefaultAuthority;
-import com.mk.blog.shammy.business.user.model.DefaultUserDetails;
+import com.mk.blog.shammy.business.user.model.UserEntity;
 import com.mk.blog.shammy.business.user.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DefaultUserDetailsServiceImplTest {
+public class UserEntityServiceImplTest {
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -29,7 +29,7 @@ public class DefaultUserDetailsServiceImplTest {
 
     @Test
     public void loadUserByUsername() {
-        DefaultUserDetails user = new DefaultUserDetails();
+        UserEntity user = new UserEntity();
         user.setUsername("username");
         user.setPassword("password");
         user.setEnabled(true);

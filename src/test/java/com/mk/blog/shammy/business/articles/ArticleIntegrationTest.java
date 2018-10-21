@@ -2,7 +2,7 @@ package com.mk.blog.shammy.business.articles;
 
 import com.mk.blog.shammy.business.articles.controller.ArticleController;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
-import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
+import com.mk.blog.shammy.business.user.dto.UserDTO;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -13,6 +13,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @RunWith(SpringRunner.class)
@@ -30,12 +31,12 @@ public class ArticleIntegrationTest {
     public void greetingShouldReturnDefaultMessage() throws Exception {
         ArticleDTO articleDTO = new ArticleDTO();
         articleDTO.setId(2l);
-        AuthorDTO authorDTO = new AuthorDTO();
+        UserDTO authorDTO = new UserDTO();
         authorDTO.setId(3);
         articleDTO.setAuthor(authorDTO);
         articleDTO.setBody("Body");
         articleDTO.setCategory("Category");
-        articleDTO.setCreateDate(new Date().toString());
+        articleDTO.setCreateDate(LocalDate.now());
         articleDTO.setSummary("summary");
 
         StatusResponse response = this.restTemplate.postForObject("http://localhost:" + port + "/article", articleDTO,

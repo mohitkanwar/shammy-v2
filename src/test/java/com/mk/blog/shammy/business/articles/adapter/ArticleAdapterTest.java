@@ -2,14 +2,14 @@ package com.mk.blog.shammy.business.articles.adapter;
 
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
-import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
-import com.mk.blog.shammy.business.authors.model.AuthorEntity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.LocalDate;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -38,11 +38,11 @@ public class ArticleAdapterTest {
         dto.setTitle("Title");
         dto.setBody("Body");
         dto.setSummary("summary");
-        dto.setCreateDate("new create date");
+        dto.setCreateDate(LocalDate.now());
         dto.setCategory("category");
         dto.setTags("tag1,tag2");
        // dto.setAuthor(new AuthorDTO());
-        dto.setLastModifiedDate("last modified date");
+        dto.setLastModifiedDate(LocalDate.now());
         return dto;
     }
 
@@ -52,11 +52,11 @@ public class ArticleAdapterTest {
         entity.setTitle("Title");
         entity.setBody("Body");
         entity.setSummary("summary");
-        entity.setCreateDate("new create date");
+        entity.setCreateDate(LocalDate.now());
         entity.setCategory("category");
         entity.setTags("tag1,tag2");
        // entity.setAuthor(new AuthorEntity());
-        entity.setLastModifiedDate("last modified date");
+        entity.setLastModifiedDate(LocalDate.now());
         return entity;
     }
 

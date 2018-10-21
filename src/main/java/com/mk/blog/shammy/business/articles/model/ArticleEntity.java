@@ -1,13 +1,14 @@
 package com.mk.blog.shammy.business.articles.model;
 
-import com.mk.blog.shammy.business.authors.model.AuthorEntity;
+import com.mk.blog.shammy.business.user.model.UserEntity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
-@Table(name = "MASTER_ARTICLE")
+@Table(name = "ARTICLES")
 public class ArticleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,10 +17,10 @@ public class ArticleEntity {
     private String body;
     private String summary;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "author_id")
-    private AuthorEntity author;
-    private String createDate;
-    private String lastModifiedDate;
+    @JoinColumn(name = "user_id")
+    private UserEntity author;
+    private LocalDate createDate;
+    private LocalDate lastModifiedDate;
     private String tags;
     private String category;
 }

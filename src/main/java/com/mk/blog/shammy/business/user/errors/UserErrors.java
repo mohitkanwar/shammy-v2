@@ -1,12 +1,12 @@
-package com.mk.blog.shammy.business.authors.errors;
+package com.mk.blog.shammy.business.user.errors;
 
-public enum AuthorErrors {
-    AUTHOR_NOT_FOUND_WITH_ID("The author with provided Id doesn't exists");
+public enum UserErrors {
+    USER_NOT_FOUND_WITH_ID("The article with provided Id doesn't exists");
 
 
 
     private String description;
-    AuthorErrors(String description){
+    UserErrors(String description){
         this.description = description;
     }
 

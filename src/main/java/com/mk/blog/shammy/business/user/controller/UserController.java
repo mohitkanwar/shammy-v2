@@ -1,8 +1,10 @@
-package com.mk.blog.shammy.business.authors.controller;
+package com.mk.blog.shammy.business.user.controller;
 
-import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
-import com.mk.blog.shammy.business.authors.errors.AuthorErrors;
-import com.mk.blog.shammy.business.authors.service.IAuthorService;
+import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
+import com.mk.blog.shammy.business.articles.errors.ArticleErrors;
+import com.mk.blog.shammy.business.user.dto.UserDTO;
+import com.mk.blog.shammy.business.user.errors.UserErrors;
+import com.mk.blog.shammy.business.user.service.IUserService;
 import com.mk.blog.shammy.framework.controller.DataResponse;
 import com.mk.blog.shammy.framework.controller.ErrorResponse;
 import com.mk.blog.shammy.framework.controller.ListResponse;
@@ -15,27 +17,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
-@RequestMapping("/author")
-public class AuthorController {
+@RequestMapping("/user")
+public class UserController {
+
     @Autowired
-    private IAuthorService service;
+    private IUserService service;
+
     @GetMapping("/{id}")
-    public DataResponse<AuthorDTO> getAuthorById(@PathVariable long id) {
-        DataResponse<AuthorDTO> response = new DataResponse<>();
+    public DataResponse<UserDTO> getById(@PathVariable long id) {
+        DataResponse<UserDTO> response = new DataResponse<>();
 
         try {
-            Optional<AuthorDTO> authorById = service.getAuthorById(id);
-            if (authorById.isPresent()) {
-                AuthorDTO author = null;
-                author = authorById.get();
-                response.setData(author);
+            Optional<UserDTO> userById = service.getUserById(id);
+            if (userById.isPresent()) {
+                UserDTO user = null;
+                user = userById.get();
+                response.setData(user);
                 response.setStatus(StatusResponse.SUCCESS);
             } else {
                 ErrorResponse error = new ErrorResponse();
-                error.setErrorCode(AuthorErrors.AUTHOR_NOT_FOUND_WITH_ID.toString());
-                error.setAdditionalInfo(AuthorErrors.AUTHOR_NOT_FOUND_WITH_ID.getDescription());
+                error.setErrorCode(UserErrors.USER_NOT_FOUND_WITH_ID.toString());
+                error.setAdditionalInfo(UserErrors.USER_NOT_FOUND_WITH_ID.getDescription());
                 response.setError(error);
                 response.setStatus(StatusResponse.FAILURE);
             }
@@ -50,12 +53,12 @@ public class AuthorController {
     }
 
     @GetMapping("/list")
-    public ListResponse<AuthorDTO> getAuthors() {
-        ListResponse<AuthorDTO> response = new ListResponse<>();
+    public ListResponse<UserDTO> getList() {
+        ListResponse<UserDTO> response = new ListResponse<>();
         try {
-            List<AuthorDTO> authors = service.getAuthors();
+            List<UserDTO> users = service.getUsers();
             response.setStatus(StatusResponse.SUCCESS);
-            response.setDataList(authors);
+            response.setDataList(users);
         } catch (RuntimeException e) {
             ErrorResponse error = new ErrorResponse();
             error.setErrorCode(Errors.WTF.toString());
@@ -68,9 +71,9 @@ public class AuthorController {
     }
 
     @PostMapping
-    public StatusResponse createAuthor(@RequestBody AuthorDTO author) {
+    public StatusResponse create(@RequestBody UserDTO user) {
         try {
-            service.save(author);
+            service.save(user);
             return StatusResponse.SUCCESS;
         } catch (RuntimeException e) {
             return StatusResponse.FAILURE;
@@ -78,7 +81,7 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
-    public StatusResponse deleteAuthor(@PathVariable long id) {
+    public StatusResponse delete(@PathVariable long id) {
         try {
             service.delete(id);
             return StatusResponse.SUCCESS;
@@ -88,13 +91,14 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}")
-    public StatusResponse updateAuthor(@RequestBody AuthorDTO article) {
+    public StatusResponse update(@RequestBody UserDTO user) {
         try {
-            service.save(article);
+            service.save(user);
             return StatusResponse.SUCCESS;
         } catch (RuntimeException e) {
             return StatusResponse.FAILURE;
         }
     }
-
 }
+
+

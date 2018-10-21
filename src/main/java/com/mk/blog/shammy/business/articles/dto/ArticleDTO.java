@@ -1,7 +1,11 @@
 package com.mk.blog.shammy.business.articles.dto;
 
-import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
+
+import com.mk.blog.shammy.business.user.dto.UserDTO;
 import lombok.Data;
+
+
+import java.time.LocalDate;
 
 @Data
 public class ArticleDTO {
@@ -9,9 +13,9 @@ public class ArticleDTO {
     private String title;
     private String body;
     private String summary;
-    private AuthorDTO author;
-    private String createDate;
-    private String lastModifiedDate;
+    private UserDTO author;
+    private LocalDate createDate;
+    private LocalDate lastModifiedDate;
     private String tags;
     private String category;
 }

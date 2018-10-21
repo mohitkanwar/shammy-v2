@@ -1,10 +1,10 @@
 package com.mk.blog.shammy.business.user.adapter;
 
-import com.mk.blog.shammy.business.authors.model.AuthorEntity;
+
 import com.mk.blog.shammy.business.user.dto.AuthorityDTO;
 import com.mk.blog.shammy.business.user.dto.UserDTO;
 import com.mk.blog.shammy.business.user.model.DefaultAuthority;
-import com.mk.blog.shammy.business.user.model.DefaultUserDetails;
+import com.mk.blog.shammy.business.user.model.UserEntity;
 import com.mk.blog.shammy.framework.adapters.DtoToEntityAdapter;
 import com.mk.blog.shammy.framework.adapters.EntityToDtoAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class UserAdapter  implements EntityToDtoAdapter<DefaultUserDetails, UserDTO>, DtoToEntityAdapter<UserDTO, DefaultUserDetails> {
+public class UserAdapter  implements EntityToDtoAdapter<UserEntity, UserDTO>, DtoToEntityAdapter<UserDTO, UserEntity> {
     @Autowired
     private AuthorityAdapter authorityAdapter;
     @Override
-    public DefaultUserDetails getEntity(UserDTO userDTO) {
-        DefaultUserDetails entity = new DefaultUserDetails();
+    public UserEntity getEntity(UserDTO userDTO) {
+        UserEntity entity = new UserEntity();
         entity.setLastName(userDTO.getLastName());
         entity.setFirstName(userDTO.getFirstName());
         entity.setUsername(userDTO.getUsername());
@@ -37,7 +37,7 @@ public class UserAdapter  implements EntityToDtoAdapter<DefaultUserDetails, User
     }
 
     @Override
-    public UserDTO getDto(DefaultUserDetails d) {
+    public UserDTO getDto(UserEntity d) {
         UserDTO userDTO = new UserDTO();
         userDTO.setLastName(d.getLastName());
         userDTO.setFirstName(d.getFirstName());

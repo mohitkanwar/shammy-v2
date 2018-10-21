@@ -4,8 +4,8 @@ import com.mk.blog.shammy.business.articles.adapter.ArticleAdapter;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
 import com.mk.blog.shammy.business.articles.repository.IArticleRepository;
-import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
-import com.mk.blog.shammy.business.authors.model.AuthorEntity;
+import com.mk.blog.shammy.business.user.dto.UserDTO;
+import com.mk.blog.shammy.business.user.model.UserEntity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,12 +42,12 @@ public class ArticleServiceTest {
         dto.setTitle("Title");
         dto.setBody("Body");
         dto.setSummary("summary");
-        dto.setCreateDate("new create date");
+        dto.setCreateDate(LocalDate.now());
         dto.setCategory("category");
         dto.setTags("tag1,tag2");
-        AuthorDTO authorDTO = new AuthorDTO();
+        UserDTO authorDTO = new UserDTO();
         dto.setAuthor(authorDTO);
-        dto.setLastModifiedDate("last modified date");
+        dto.setLastModifiedDate(LocalDate.now());
         return dto;
     }
 
@@ -56,12 +57,12 @@ public class ArticleServiceTest {
         entity.setTitle("Title");
         entity.setBody("Body");
         entity.setSummary("summary");
-        entity.setCreateDate("new create date");
+        entity.setCreateDate(LocalDate.now());
         entity.setCategory("category");
         entity.setTags("tag1,tag2");
-        AuthorEntity authorEntity = new AuthorEntity();
+        UserEntity authorEntity = new UserEntity();
         entity.setAuthor(authorEntity);
-        entity.setLastModifiedDate("last modified date");
+        entity.setLastModifiedDate(LocalDate.now());
         return entity;
     }
 

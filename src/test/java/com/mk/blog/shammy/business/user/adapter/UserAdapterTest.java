@@ -1,10 +1,10 @@
 package com.mk.blog.shammy.business.user.adapter;
 
-import com.mk.blog.shammy.business.authors.dto.AuthorDTO;
+
 import com.mk.blog.shammy.business.user.dto.AuthorityDTO;
 import com.mk.blog.shammy.business.user.dto.UserDTO;
 import com.mk.blog.shammy.business.user.model.DefaultAuthority;
-import com.mk.blog.shammy.business.user.model.DefaultUserDetails;
+import com.mk.blog.shammy.business.user.model.UserEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class UserAdapterTest {
 
     @Test
     public void getEntity() {
-        DefaultUserDetails fromAdapter = userAdapter.getEntity(getUserDto());
+        UserEntity fromAdapter = userAdapter.getEntity(getUserDto());
         assertEquals(getDefaultUserDetails(),fromAdapter);
     }
 
@@ -35,8 +35,8 @@ public class UserAdapterTest {
     }
 
 
-    private DefaultUserDetails getDefaultUserDetails(){
-        DefaultUserDetails user = new DefaultUserDetails();
+    private UserEntity getDefaultUserDetails(){
+        UserEntity user = new UserEntity();
         List<DefaultAuthority> authorities = new ArrayList<>();
         DefaultAuthority authority = new DefaultAuthority();
         authority.setAuthority("authority");
