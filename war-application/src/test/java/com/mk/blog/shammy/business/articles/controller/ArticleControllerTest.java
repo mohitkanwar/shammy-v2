@@ -3,7 +3,7 @@ package com.mk.blog.shammy.business.articles.controller;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
 import com.mk.blog.shammy.framework.controller.DataResponse;
-import com.mk.blog.shammy.framework.controller.ListResponse;
+import com.mk.blog.shammy.framework.controller.PaginatedListResponse;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
 import com.mk.blog.shammy.framework.errors.Errors;
 import org.junit.Assert;
@@ -58,10 +58,9 @@ public class ArticleControllerTest {
         List<ArticleDTO> articleDTOList = new ArrayList<>();
         articleDTOList.add(mockArticle);
         Mockito.when(service.getArticles()).thenReturn(articleDTOList);
-        ListResponse<ArticleDTO> response = controller.getArticles();
+        PaginatedListResponse<ArticleDTO> response = controller.getArticles();
         Assert.assertEquals(StatusResponse.SUCCESS, response.getStatus());
         Assert.assertEquals(articleDTOList, response.getDataList());
-        Assert.assertEquals(1, response.getSize());
     }
 
     @Test
@@ -72,7 +71,7 @@ public class ArticleControllerTest {
         List<ArticleDTO> articleDTOList = new ArrayList<>();
         articleDTOList.add(mockArticle);
         Mockito.when(service.getArticles()).thenThrow(new NullPointerException());
-        ListResponse<ArticleDTO> response = controller.getArticles();
+        PaginatedListResponse<ArticleDTO> response = controller.getArticles();
         Assert.assertEquals(StatusResponse.FAILURE, response.getStatus());
         Assert.assertEquals(new ArrayList<>(), response.getDataList());
         Assert.assertEquals(Errors.WTF.toString(), response.getError().getErrorCode());

@@ -5,7 +5,7 @@ import com.mk.blog.shammy.business.articles.errors.ArticleErrors;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
 import com.mk.blog.shammy.framework.controller.DataResponse;
 import com.mk.blog.shammy.framework.controller.ErrorResponse;
-import com.mk.blog.shammy.framework.controller.ListResponse;
+import com.mk.blog.shammy.framework.controller.PaginatedListResponse;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
 import com.mk.blog.shammy.framework.errors.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +55,8 @@ public class ArticleController {
     }
 
     @GetMapping("/list")
-    public ListResponse<ArticleDTO> getArticles() {
-        ListResponse<ArticleDTO> response = new ListResponse<>();
+    public PaginatedListResponse<ArticleDTO> getArticles() {
+        PaginatedListResponse<ArticleDTO> response = new PaginatedListResponse<>();
         try {
             List<ArticleDTO> articles = service.getArticles();
             response.setStatus(StatusResponse.SUCCESS);

@@ -3,7 +3,7 @@ package com.mk.blog.shammy.business.users.controller;
 
 import com.mk.blog.shammy.framework.controller.DataResponse;
 import com.mk.blog.shammy.framework.controller.ErrorResponse;
-import com.mk.blog.shammy.framework.controller.ListResponse;
+import com.mk.blog.shammy.framework.controller.PaginatedListResponse;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
 import com.mk.blog.shammy.framework.errors.Errors;
 import com.mk.blog.shammy.framework.user.dto.UserDTO;
@@ -56,19 +56,23 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public ListResponse<UserDTO> getList() {
-        ListResponse<UserDTO> response = new ListResponse<>();
+    public PaginatedListResponse<UserDTO> getList(@RequestParam(name = "pageSize",required = false,defaultValue = "10") int pageSize,
+                                                  @RequestParam(name = "pageNumber",required = false,defaultValue = "1") int pageNumber,
+                                                    @RequestParam(name = "sortBy",required = false,defaultValue = "id") String sortBy){
+        PaginatedListResponse<UserDTO> response ;
+
         try {
-            List<UserDTO> users = service.getUsers();
+            response = service.getUsers(pageSize,pageNumber-1,sortBy);
             response.setStatus(StatusResponse.SUCCESS);
-            response.setDataList(users);
+            response.setPageNumber(pageNumber);
+            response.setPageSize(pageSize);
         } catch (RuntimeException e) {
             ErrorResponse error = new ErrorResponse();
             error.setErrorCode(Errors.WTF.toString());
             error.setAdditionalInfo(Errors.WTF.getDescription());
+            response = new PaginatedListResponse<>();
             response.setError(error);
-            response.setStatus(StatusResponse.FAILURE);
-            response.setDataList(new ArrayList<>());
+
         }
         return response;
     }

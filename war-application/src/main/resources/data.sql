@@ -22,3 +22,19 @@ INSERT INTO `shammy`.`user_authorities` (user_id,authority_id) VALUES
 ('1','1');
 INSERT INTO `shammy`.`user_authorities` (user_id,authority_id) VALUES
 ('2','2');
+INSERT INTO `shammy`.`users` (`id`, `account_non_expired`, `account_non_locked`, `credentials_non_expired`, `enabled`, `first_name`, `last_name`, `password`, `username`) VALUES
+ ('3', true, true, true, true, 'User1', 'User1', 'user1', 'user1');
+INSERT INTO `shammy`.`user_authorities` (user_id,authority_id) VALUES
+('3','2');
+INSERT INTO `shammy`.`users` (`id`, `account_non_expired`, `account_non_locked`, `credentials_non_expired`, `enabled`, `first_name`, `last_name`, `password`, `username`) VALUES
+ ('4', true, true, true, true, 'User1', 'User1', 'user1', 'user2');
+INSERT INTO `shammy`.`user_authorities` (user_id,authority_id) VALUES
+('4','2');
+INSERT INTO `shammy`.`users` (`id`, `account_non_expired`, `account_non_locked`, `credentials_non_expired`, `enabled`, `first_name`, `last_name`, `password`, `username`) VALUES
+ ('5', true, true, true, true, 'User1', 'User1', 'user1', 'user3');
+INSERT INTO `shammy`.`user_authorities` (user_id,authority_id) VALUES
+('5','2');
+INSERT INTO `shammy`.`users` (`id`, `account_non_expired`, `account_non_locked`, `credentials_non_expired`, `enabled`, `first_name`, `last_name`, `password`, `username`) VALUES
+ ('6', true, true, true, true, 'User1', 'User1', 'user1', 'user4');
+INSERT INTO `shammy`.`user_authorities` (user_id,authority_id) VALUES
+('6','2');
