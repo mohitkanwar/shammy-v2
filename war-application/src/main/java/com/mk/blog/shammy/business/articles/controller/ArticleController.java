@@ -55,13 +55,15 @@ public class ArticleController {
     }
 
     @GetMapping("/list")
-    public PaginatedListResponse<ArticleDTO> getArticles() {
-        PaginatedListResponse<ArticleDTO> response = new PaginatedListResponse<>();
+    public PaginatedListResponse<ArticleDTO> getArticles(@RequestParam(name = "pageSize",required = false,defaultValue = "10") int pageSize,
+                                                         @RequestParam(name = "pageNumber",required = false,defaultValue = "0") int pageNumber,
+                                                         @RequestParam(name = "sortBy",required = false,defaultValue = "id") String sortBy) {
+        PaginatedListResponse<ArticleDTO> response ;
         try {
-            List<ArticleDTO> articles = service.getArticles();
+            response = service.getArticles(pageSize,pageNumber,sortBy);
             response.setStatus(StatusResponse.SUCCESS);
-            response.setDataList(articles);
         } catch (RuntimeException e) {
+            response = new PaginatedListResponse<>();
             ErrorResponse error = new ErrorResponse();
             error.setErrorCode(Errors.WTF.toString());
             error.setAdditionalInfo(Errors.WTF.getDescription());
@@ -73,13 +75,14 @@ public class ArticleController {
     }
 
     @PostMapping
-    public StatusResponse createArticle(@RequestBody ArticleDTO article) {
+    public DataResponse<ArticleDTO> createArticle(@RequestBody ArticleDTO article) {
+        DataResponse<ArticleDTO> response = new DataResponse<>();
         try {
             service.save(article);
-            return StatusResponse.SUCCESS;
+            response.setStatus(StatusResponse.SUCCESS);
         } catch (RuntimeException e) {
-            return StatusResponse.FAILURE;
-        }
+            response.setStatus(StatusResponse.FAILURE);        }
+        return response;
     }
 
     @DeleteMapping("/{id}")

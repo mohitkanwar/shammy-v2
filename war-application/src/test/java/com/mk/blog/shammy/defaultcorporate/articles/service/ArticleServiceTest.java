@@ -4,7 +4,7 @@ import com.mk.blog.shammy.business.articles.adapter.ArticleAdapter;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
 import com.mk.blog.shammy.business.articles.repository.IArticleRepository;
-import com.mk.blog.shammy.framework.user.dto.UserDTO;
+import com.mk.blog.shammy.framework.controller.PaginatedListResponse;
 import com.mk.blog.shammy.framework.user.model.UserEntity;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,6 +12,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -45,8 +49,6 @@ public class ArticleServiceTest {
         dto.setCreateDate(LocalDate.now());
         dto.setCategory("category");
         dto.setTags("tag1,tag2");
-        UserDTO authorDTO = new UserDTO();
-        dto.setAuthor(authorDTO);
         dto.setLastModifiedDate(LocalDate.now());
         return dto;
     }
@@ -70,13 +72,15 @@ public class ArticleServiceTest {
     public void getArticles() {
         List<ArticleEntity> articleEntitiesList = new ArrayList<>();
         ArticleEntity entity = getArticleEntity();
-
         articleEntitiesList.add(entity);
-        when(repository.findAll()).thenReturn(articleEntitiesList);
+        Page<ArticleEntity> articlePage = new PageImpl<>(articleEntitiesList) ;
+
+
+        when(repository.findAll(PageRequest.of(1,1, Sort.by("id")))).thenReturn(articlePage);
         when(articleAdapter.getDto(getArticleEntity())).thenReturn(getArticleDTO());
-        List<ArticleDTO> output = service.getArticles();
-        Assert.assertEquals(1, output.size());
-        Assert.assertEquals(getArticleDTO(), output.get(0));
+        PaginatedListResponse<ArticleDTO> output = service.getArticles(1,1,"id");
+        Assert.assertEquals(1, output.getDataList().size());
+        Assert.assertEquals(getArticleDTO(), output.getDataList().get(0));
     }
 
     @Test

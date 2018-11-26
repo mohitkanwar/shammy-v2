@@ -2,6 +2,7 @@ package com.mk.blog.shammy.business.articles;
 
 import com.mk.blog.shammy.business.articles.controller.ArticleController;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
+import com.mk.blog.shammy.framework.controller.DataResponse;
 import com.mk.blog.shammy.framework.user.dto.UserDTO;
 import com.mk.blog.shammy.framework.controller.StatusResponse;
 import org.assertj.core.api.Assertions;
@@ -33,15 +34,14 @@ public class ArticleIntegrationTest {
         articleDTO.setId(2l);
         UserDTO authorDTO = new UserDTO();
         authorDTO.setId(3L);
-        articleDTO.setAuthor(authorDTO);
         articleDTO.setBody("Body");
         articleDTO.setCategory("Category");
         articleDTO.setCreateDate(LocalDate.now());
         articleDTO.setSummary("summary");
 
-        StatusResponse response = this.restTemplate.postForObject("http://localhost:" + port + "/article", articleDTO,
-                StatusResponse.class);
-        Assertions.assertThat(response.equals(StatusResponse.SUCCESS));
+        DataResponse response = this.restTemplate.postForObject("http://localhost:" + port + "/article", articleDTO,
+                DataResponse.class);
+        Assertions.assertThat(response.getStatus().equals(StatusResponse.SUCCESS));
 
         ArticleDTO articleFromController = this.restTemplate.getForObject("http://localhost:" + port + "/article/2",
                 ArticleDTO.class);

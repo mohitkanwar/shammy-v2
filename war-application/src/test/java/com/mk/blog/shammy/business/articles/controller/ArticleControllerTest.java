@@ -57,8 +57,10 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         List<ArticleDTO> articleDTOList = new ArrayList<>();
         articleDTOList.add(mockArticle);
-        Mockito.when(service.getArticles()).thenReturn(articleDTOList);
-        PaginatedListResponse<ArticleDTO> response = controller.getArticles();
+        PaginatedListResponse<ArticleDTO> mockResponse = new PaginatedListResponse<>();
+        mockResponse.setDataList(articleDTOList);
+        Mockito.when(service.getArticles(1,1,"id")).thenReturn(mockResponse);
+        PaginatedListResponse<ArticleDTO> response = controller.getArticles(1,1,"id");
         Assert.assertEquals(StatusResponse.SUCCESS, response.getStatus());
         Assert.assertEquals(articleDTOList, response.getDataList());
     }
@@ -70,8 +72,8 @@ public class ArticleControllerTest {
         mockArticle.setTitle("Mock Title");
         List<ArticleDTO> articleDTOList = new ArrayList<>();
         articleDTOList.add(mockArticle);
-        Mockito.when(service.getArticles()).thenThrow(new NullPointerException());
-        PaginatedListResponse<ArticleDTO> response = controller.getArticles();
+        Mockito.when(service.getArticles(1,1,"ed")).thenThrow(new NullPointerException());
+        PaginatedListResponse<ArticleDTO> response = controller.getArticles(1,1,"ed");
         Assert.assertEquals(StatusResponse.FAILURE, response.getStatus());
         Assert.assertEquals(new ArrayList<>(), response.getDataList());
         Assert.assertEquals(Errors.WTF.toString(), response.getError().getErrorCode());
@@ -84,8 +86,8 @@ public class ArticleControllerTest {
         mockArticle.setId(1L);
         mockArticle.setTitle("Mock Title");
         Mockito.doNothing().when(service).save(mockArticle);
-        StatusResponse response = controller.createArticle(mockArticle);
-        Assert.assertEquals(StatusResponse.SUCCESS, response);
+        DataResponse response = controller.createArticle(mockArticle);
+        Assert.assertEquals(StatusResponse.SUCCESS, response.getStatus());
     }
 
     @Test
@@ -94,8 +96,8 @@ public class ArticleControllerTest {
         mockArticle.setId(1L);
         mockArticle.setTitle("Mock Title");
         Mockito.doThrow(new NullPointerException()).when(service).save(mockArticle);
-        StatusResponse response = controller.createArticle(mockArticle);
-        Assert.assertEquals(StatusResponse.FAILURE, response);
+        DataResponse response = controller.createArticle(mockArticle);
+        Assert.assertEquals(StatusResponse.FAILURE, response.getStatus());
     }
 
     @Test

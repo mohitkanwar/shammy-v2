@@ -5,7 +5,11 @@ import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
 import com.mk.blog.shammy.business.articles.repository.IArticleRepository;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
+import com.mk.blog.shammy.framework.controller.PaginatedListResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,10 +33,16 @@ public class ArticleService implements IArticleService {
     }
 
     @Override
-    public List<ArticleDTO> getArticles() {
+    public PaginatedListResponse<ArticleDTO> getArticles(int pageSize, int pageNumber, String sortBy) {
+        PaginatedListResponse<ArticleDTO> response = new PaginatedListResponse<>();
         List<ArticleDTO> articlesList = new ArrayList<>();
-        repository.findAll().forEach(entity -> articlesList.add(adapter.getDto(entity)));
-        return articlesList;
+        Page<ArticleEntity> articlePage = repository.findAll(PageRequest.of(pageNumber,pageSize, Sort.by(sortBy)));
+        articlePage.forEach(entity -> articlesList.add(adapter.getDto(entity)));
+        response.setDataList(articlesList);
+        response.setPageNumber(articlePage.getNumber());
+        response.setPageSize(articlePage.getSize());
+        response.setTotalsize(articlePage.getTotalElements());
+        return response;
     }
 
     @Override

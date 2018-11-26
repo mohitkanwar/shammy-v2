@@ -12,7 +12,7 @@ public class ArticleDTO {
     private String title;
     private String body;
     private String summary;
-    private UserDTO author;
+//    private UserDTO author;
     private LocalDate createDate;
     private LocalDate lastModifiedDate;
     private String tags;
@@ -50,13 +50,13 @@ public class ArticleDTO {
         this.summary = summary;
     }
 
-    public UserDTO getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(UserDTO author) {
-        this.author = author;
-    }
+//    public UserDTO getAuthor() {
+//        return author;
+//    }
+//
+//    public void setAuthor(UserDTO author) {
+//        this.author = author;
+//    }
 
     public LocalDate getCreateDate() {
         return createDate;
@@ -100,7 +100,7 @@ public class ArticleDTO {
                     Objects.equals(getTitle(), that.getTitle()) &&
                     Objects.equals(getBody(), that.getBody()) &&
                     Objects.equals(getSummary(), that.getSummary()) &&
-                    Objects.equals(getAuthor(), that.getAuthor()) &&
+                    //Objects.equals(getAuthor(), that.getAuthor()) &&
                     Objects.equals(getCreateDate(), that.getCreateDate()) &&
                     Objects.equals(getLastModifiedDate(), that.getLastModifiedDate()) &&
                     Objects.equals(getTags(), that.getTags()) &&
@@ -112,6 +112,6 @@ public class ArticleDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getBody(), getSummary(), getAuthor(), getCreateDate(), getLastModifiedDate(), getTags(), getCategory());
+        return Objects.hash(getId(), getTitle(), getBody(), getSummary(), getCreateDate(), getLastModifiedDate(), getTags(), getCategory());
     }
 }
