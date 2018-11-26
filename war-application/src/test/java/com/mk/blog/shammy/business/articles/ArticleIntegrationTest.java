@@ -32,7 +32,7 @@ public class ArticleIntegrationTest {
         ArticleDTO articleDTO = new ArticleDTO();
         articleDTO.setId(2l);
         UserDTO authorDTO = new UserDTO();
-        authorDTO.setId(3);
+        authorDTO.setId(3L);
         articleDTO.setAuthor(authorDTO);
         articleDTO.setBody("Body");
         articleDTO.setCategory("Category");

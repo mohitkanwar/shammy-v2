@@ -92,11 +92,11 @@
             <artifactId>jaxb-api</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.projectlombok</groupId>-->
+            <!--<artifactId>lombok</artifactId>-->
+            <!--<optional>true</optional>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -144,7 +144,7 @@
                 <version>3.0.0-M1</version>
                 <configuration>
                     <skipTests>false</skipTests>
-                    <testFailureIgnore>true</testFailureIgnore>
+                    <testFailureIgnore>false</testFailureIgnore>
                     <forkCount>1</forkCount>
                 </configuration>
             </plugin>

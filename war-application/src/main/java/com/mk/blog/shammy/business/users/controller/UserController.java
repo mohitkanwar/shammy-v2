@@ -57,12 +57,12 @@ public class UserController {
 
     @GetMapping("/list")
     public PaginatedListResponse<UserDTO> getList(@RequestParam(name = "pageSize",required = false,defaultValue = "10") int pageSize,
-                                                  @RequestParam(name = "pageNumber",required = false,defaultValue = "1") int pageNumber,
+                                                  @RequestParam(name = "pageNumber",required = false,defaultValue = "0") int pageNumber,
                                                     @RequestParam(name = "sortBy",required = false,defaultValue = "id") String sortBy){
         PaginatedListResponse<UserDTO> response ;
 
         try {
-            response = service.getUsers(pageSize,pageNumber-1,sortBy);
+            response = service.getUsers(pageSize,pageNumber,sortBy);
             response.setStatus(StatusResponse.SUCCESS);
             response.setPageNumber(pageNumber);
             response.setPageSize(pageSize);
