@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -78,7 +77,7 @@ public class ArticleController {
     public DataResponse<ArticleDTO> createArticle(@RequestBody ArticleDTO article) {
         DataResponse<ArticleDTO> response = new DataResponse<>();
         try {
-            service.save(article);
+            response.setData(service.save(article));
             response.setStatus(StatusResponse.SUCCESS);
         } catch (RuntimeException e) {
             response.setStatus(StatusResponse.FAILURE);        }
@@ -86,11 +85,13 @@ public class ArticleController {
     }
 
     @DeleteMapping("/{id}")
-    public StatusResponse deleteArticle(@PathVariable long id) {
+    public  StatusResponse deleteArticle(@PathVariable long id) {
         try {
             service.delete(id);
+            System.out.println(StatusResponse.SUCCESS);
             return StatusResponse.SUCCESS;
         } catch (RuntimeException e) {
+            System.out.println(StatusResponse.FAILURE);
             return StatusResponse.FAILURE;
         }
     }

@@ -28,8 +28,8 @@ public class ArticleService implements IArticleService {
     }
 
     @Override
-    public void save(ArticleDTO article) {
-        repository.save(adapter.getEntity(article));
+    public ArticleDTO save(ArticleDTO article) {
+        return adapter.getDto(repository.save(adapter.getEntity(article)));
     }
 
     @Override

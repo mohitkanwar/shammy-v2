@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IArticleService {
-    void save(ArticleDTO article);
+    ArticleDTO save(ArticleDTO article);
 
     PaginatedListResponse<ArticleDTO> getArticles(int pageSize, int pageNumber, String sortBy);
 
