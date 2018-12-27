@@ -6,17 +6,22 @@ import com.mk.blog.shammy.business.articles.model.ArticleEntity;
 import com.mk.blog.shammy.framework.user.adapter.UserAdapter;
 import com.mk.blog.shammy.framework.adapters.DtoToEntityAdapter;
 import com.mk.blog.shammy.framework.adapters.EntityToDtoAdapter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.Collectors;
 
 @Component
 public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, ArticleDTO>, DtoToEntityAdapter<ArticleDTO, ArticleEntity> {
 
     private final UserAdapter authorAdapter;
+    private final KeywordAdapter keywordAdapter;
 
     @Autowired
-    public ArticleAdapter(UserAdapter authorAdapter) {
+    public ArticleAdapter(UserAdapter authorAdapter, KeywordAdapter keywordAdapter) {
         this.authorAdapter = authorAdapter;
+        this.keywordAdapter = keywordAdapter;
     }
 
     @Override
@@ -28,7 +33,7 @@ public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, Article
         entity.setSummary(d.getSummary());
         entity.setCreateDate(d.getCreateDate());
         entity.setLastModifiedDate(d.getLastModifiedDate());
-        entity.setTags(d.getTags());
+        entity.setSeoKeywords(d.getSeoKeywords().stream().map(keywordAdapter::getEntity).collect(Collectors.toList()));
         entity.setCategory(d.getCategory());
         return entity;
     }
@@ -42,7 +47,7 @@ public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, Article
         dto.setSummary(entity.getSummary());
         dto.setCreateDate(entity.getCreateDate());
         dto.setLastModifiedDate(entity.getLastModifiedDate());
-        dto.setTags(entity.getTags());
+        dto.setSeoKeywords(entity.getSeoKeywords().stream().map(keywordAdapter::getDto).collect(Collectors.toList()));
         dto.setCategory(entity.getCategory());
         return dto;
     }

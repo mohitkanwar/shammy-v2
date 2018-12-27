@@ -1,9 +1,12 @@
 package com.mk.blog.shammy.business.articles.model;
 
 import com.mk.blog.shammy.framework.user.model.UserEntity;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,7 +23,10 @@ public class ArticleEntity {
     private UserEntity author;
     private LocalDate createDate;
     private LocalDate lastModifiedDate;
-    private String tags;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "ARTICLE_SEO_KEYWORDS", joinColumns = { @JoinColumn(name = "ARTICLE_ID") }, inverseJoinColumns = { @JoinColumn(name = "KEYWORD_ID") })
+    private List<SeoKeywordEntity> seoKeywords;
     private String category;
 
     public Long getId() {
@@ -79,12 +85,12 @@ public class ArticleEntity {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getTags() {
-        return tags;
+    public List<SeoKeywordEntity> getSeoKeywords() {
+        return seoKeywords;
     }
 
-    public void setTags(String tags) {
-        this.tags = tags;
+    public void setSeoKeywords(List<SeoKeywordEntity> seoKeywords) {
+        this.seoKeywords = seoKeywords;
     }
 
     public String getCategory() {
@@ -107,7 +113,7 @@ public class ArticleEntity {
                     Objects.equals(getAuthor(), that.getAuthor()) &&
                     Objects.equals(getCreateDate(), that.getCreateDate()) &&
                     Objects.equals(getLastModifiedDate(), that.getLastModifiedDate()) &&
-                    Objects.equals(getTags(), that.getTags()) &&
+                    Objects.equals(getSeoKeywords(), that.getSeoKeywords()) &&
                     Objects.equals(getCategory(), that.getCategory());
         }else{
             return Objects.equals(getId(),that.getId());
@@ -117,7 +123,7 @@ public class ArticleEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getBody(), getSummary(), getAuthor(), getCreateDate(), getLastModifiedDate(), getTags(), getCategory());
+        return Objects.hash(getId(), getTitle(), getBody(), getSummary(), getAuthor(), getCreateDate(), getLastModifiedDate(), getSeoKeywords(), getCategory());
     }
 }
 

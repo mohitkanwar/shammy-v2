@@ -2,6 +2,7 @@ package com.mk.blog.shammy.business.articles.adapter;
 
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
+import com.mk.blog.shammy.business.articles.model.SeoKeywordEntity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -40,7 +43,10 @@ public class ArticleAdapterTest {
         dto.setSummary("summary");
         dto.setCreateDate(LocalDate.now());
         dto.setCategory("category");
-        dto.setTags("tag1,tag2");
+        List<String> keywords = new ArrayList<String>();
+        keywords.add("key1");
+        keywords.add("key2");
+        dto.setSeoKeywords(keywords);
        // dto.setAuthor(new AuthorDTO());
         dto.setLastModifiedDate(LocalDate.now());
         return dto;
@@ -54,8 +60,10 @@ public class ArticleAdapterTest {
         entity.setSummary("summary");
         entity.setCreateDate(LocalDate.now());
         entity.setCategory("category");
-        entity.setTags("tag1,tag2");
-       // entity.setAuthor(new AuthorEntity());
+        List<SeoKeywordEntity> keywords = new ArrayList<SeoKeywordEntity>();
+        keywords.add(new SeoKeywordEntity("key1"));
+        keywords.add(new SeoKeywordEntity("key2"));
+        entity.setSeoKeywords(keywords);       // entity.setAuthor(new AuthorEntity());
         entity.setLastModifiedDate(LocalDate.now());
         return entity;
     }

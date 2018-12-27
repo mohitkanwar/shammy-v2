@@ -44,6 +44,7 @@ public class ArticleController {
                 response.setStatus(StatusResponse.FAILURE);
             }
         } catch (RuntimeException e) {
+            e.printStackTrace();
             ErrorResponse error = new ErrorResponse();
             error.setErrorCode(Errors.WTF.toString());
             error.setAdditionalInfo(Errors.WTF.getDescription());
@@ -91,6 +92,7 @@ public class ArticleController {
             System.out.println(StatusResponse.SUCCESS);
             return StatusResponse.SUCCESS;
         } catch (RuntimeException e) {
+            System.out.println(e);
             System.out.println(StatusResponse.FAILURE);
             return StatusResponse.FAILURE;
         }

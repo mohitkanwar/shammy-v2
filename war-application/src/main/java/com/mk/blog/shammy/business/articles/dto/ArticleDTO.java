@@ -1,10 +1,8 @@
 package com.mk.blog.shammy.business.articles.dto;
 
 
-import com.mk.blog.shammy.framework.user.dto.UserDTO;
-
-
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class ArticleDTO {
@@ -15,7 +13,7 @@ public class ArticleDTO {
 //    private UserDTO author;
     private LocalDate createDate;
     private LocalDate lastModifiedDate;
-    private String tags;
+    private List<String> seoKeywords;
     private String category;
 
     public Long getId() {
@@ -74,20 +72,20 @@ public class ArticleDTO {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
     public String getCategory() {
         return category;
     }
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public List<String> getSeoKeywords() {
+        return seoKeywords;
+    }
+
+    public void setSeoKeywords(List<String> seoKeywords) {
+        this.seoKeywords = seoKeywords;
     }
 
     @Override
@@ -103,7 +101,7 @@ public class ArticleDTO {
                     //Objects.equals(getAuthor(), that.getAuthor()) &&
                     Objects.equals(getCreateDate(), that.getCreateDate()) &&
                     Objects.equals(getLastModifiedDate(), that.getLastModifiedDate()) &&
-                    Objects.equals(getTags(), that.getTags()) &&
+                    Objects.equals(getSeoKeywords(), that.getSeoKeywords()) &&
                     Objects.equals(getCategory(), that.getCategory());
         }
         return Objects.equals(getId(), that.getId()) ;
@@ -112,6 +110,6 @@ public class ArticleDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getBody(), getSummary(), getCreateDate(), getLastModifiedDate(), getTags(), getCategory());
+        return Objects.hash(getId(), getTitle(), getBody(), getSummary(), getCreateDate(), getLastModifiedDate(), getSeoKeywords(), getCategory());
     }
 }

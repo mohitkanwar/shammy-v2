@@ -3,6 +3,7 @@ package com.mk.blog.shammy.defaultcorporate.articles.service;
 import com.mk.blog.shammy.business.articles.adapter.ArticleAdapter;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
+import com.mk.blog.shammy.business.articles.model.SeoKeywordEntity;
 import com.mk.blog.shammy.business.articles.repository.IArticleRepository;
 import com.mk.blog.shammy.framework.controller.PaginatedListResponse;
 import com.mk.blog.shammy.framework.user.model.UserEntity;
@@ -48,7 +49,10 @@ public class ArticleServiceTest {
         dto.setSummary("summary");
         dto.setCreateDate(LocalDate.now());
         dto.setCategory("category");
-        dto.setTags("tag1,tag2");
+        List<String> keywords = new ArrayList<String>();
+        keywords.add("key1");
+        keywords.add("key2");
+        dto.setSeoKeywords(keywords);
         dto.setLastModifiedDate(LocalDate.now());
         return dto;
     }
@@ -61,7 +65,10 @@ public class ArticleServiceTest {
         entity.setSummary("summary");
         entity.setCreateDate(LocalDate.now());
         entity.setCategory("category");
-        entity.setTags("tag1,tag2");
+        List<SeoKeywordEntity> keywords = new ArrayList<SeoKeywordEntity>();
+        keywords.add(new SeoKeywordEntity("key1"));
+        keywords.add(new SeoKeywordEntity("key2"));
+        entity.setSeoKeywords(keywords);
         UserEntity authorEntity = new UserEntity();
         entity.setAuthor(authorEntity);
         entity.setLastModifiedDate(LocalDate.now());

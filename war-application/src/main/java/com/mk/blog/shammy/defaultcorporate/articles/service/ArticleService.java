@@ -5,6 +5,7 @@ import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
 import com.mk.blog.shammy.business.articles.repository.IArticleRepository;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
+import com.mk.blog.shammy.business.articles.service.ISeoKeywordService;
 import com.mk.blog.shammy.framework.controller.PaginatedListResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class ArticleService implements IArticleService {
     private final IArticleRepository repository;
     private final ArticleAdapter adapter;
+
 
     @Autowired
     public ArticleService(IArticleRepository repository, ArticleAdapter adapter) {
