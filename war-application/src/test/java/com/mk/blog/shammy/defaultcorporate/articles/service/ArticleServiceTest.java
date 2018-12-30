@@ -20,9 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -65,7 +63,7 @@ public class ArticleServiceTest {
         entity.setSummary("summary");
         entity.setCreateDate(LocalDate.now());
         entity.setCategory("category");
-        List<SeoKeywordEntity> keywords = new ArrayList<SeoKeywordEntity>();
+        Set<SeoKeywordEntity> keywords = new HashSet<SeoKeywordEntity>();
         keywords.add(new SeoKeywordEntity("key1"));
         keywords.add(new SeoKeywordEntity("key2"));
         entity.setSeoKeywords(keywords);

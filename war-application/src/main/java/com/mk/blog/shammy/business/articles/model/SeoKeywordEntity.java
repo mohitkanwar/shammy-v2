@@ -1,6 +1,7 @@
 package com.mk.blog.shammy.business.articles.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "SEO_KEYWORDS")
@@ -16,7 +17,7 @@ public class SeoKeywordEntity {
     }
 
     public SeoKeywordEntity(String s) {
-        this.keyword = s;
+        setKeyword(s);
     }
 
     public Long getId() {
@@ -32,6 +33,19 @@ public class SeoKeywordEntity {
     }
 
     public void setKeyword(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.toLowerCase();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SeoKeywordEntity)) return false;
+        SeoKeywordEntity entity = (SeoKeywordEntity) o;
+        return getKeyword().equals(entity.getKeyword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getKeyword());
     }
 }

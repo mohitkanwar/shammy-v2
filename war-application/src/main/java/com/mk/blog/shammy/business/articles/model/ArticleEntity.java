@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "ARTICLES")
@@ -24,9 +25,9 @@ public class ArticleEntity {
     private LocalDate createDate;
     private LocalDate lastModifiedDate;
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name = "ARTICLE_SEO_KEYWORDS", joinColumns = { @JoinColumn(name = "ARTICLE_ID") }, inverseJoinColumns = { @JoinColumn(name = "KEYWORD_ID") })
-    private List<SeoKeywordEntity> seoKeywords;
+    private Set<SeoKeywordEntity> seoKeywords;
     private String category;
 
     public Long getId() {
@@ -85,11 +86,11 @@ public class ArticleEntity {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public List<SeoKeywordEntity> getSeoKeywords() {
+    public Set<SeoKeywordEntity> getSeoKeywords() {
         return seoKeywords;
     }
 
-    public void setSeoKeywords(List<SeoKeywordEntity> seoKeywords) {
+    public void setSeoKeywords(Set<SeoKeywordEntity> seoKeywords) {
         this.seoKeywords = seoKeywords;
     }
 

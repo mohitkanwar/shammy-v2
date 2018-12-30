@@ -81,6 +81,7 @@ public class ArticleController {
             response.setData(service.save(article));
             response.setStatus(StatusResponse.SUCCESS);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             response.setStatus(StatusResponse.FAILURE);        }
         return response;
     }

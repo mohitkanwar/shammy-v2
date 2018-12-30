@@ -33,7 +33,7 @@ public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, Article
         entity.setSummary(d.getSummary());
         entity.setCreateDate(d.getCreateDate());
         entity.setLastModifiedDate(d.getLastModifiedDate());
-        entity.setSeoKeywords(d.getSeoKeywords().stream().map(keywordAdapter::getEntity).collect(Collectors.toList()));
+        entity.setSeoKeywords(d.getSeoKeywords().stream().map(keywordAdapter::getEntity).collect(Collectors.toSet()));
         entity.setCategory(d.getCategory());
         return entity;
     }

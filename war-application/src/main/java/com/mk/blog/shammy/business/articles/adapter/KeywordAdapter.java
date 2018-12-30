@@ -9,10 +9,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class KeywordAdapter implements EntityToDtoAdapter<SeoKeywordEntity, String>, DtoToEntityAdapter<String, SeoKeywordEntity> {
 
+    private final ISEOKeywordRepository keywordRepository;
+
+    @Autowired
+    public KeywordAdapter(ISEOKeywordRepository keywordRepository) {
+        this.keywordRepository = keywordRepository;
+    }
+
     @Override
     public SeoKeywordEntity getEntity(String s) {
-        return new SeoKeywordEntity(s);
-
+        return this.keywordRepository.findByKeyword(s).orElse(new SeoKeywordEntity(s));
     }
 
     @Override

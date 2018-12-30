@@ -1,9 +1,12 @@
 package com.mk.blog.shammy.defaultcorporate.articles.service;
 
 import com.mk.blog.shammy.business.articles.adapter.ArticleAdapter;
+import com.mk.blog.shammy.business.articles.adapter.KeywordAdapter;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
+import com.mk.blog.shammy.business.articles.model.SeoKeywordEntity;
 import com.mk.blog.shammy.business.articles.repository.IArticleRepository;
+import com.mk.blog.shammy.business.articles.repository.ISEOKeywordRepository;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
 import com.mk.blog.shammy.business.articles.service.ISeoKeywordService;
 import com.mk.blog.shammy.framework.controller.PaginatedListResponse;
@@ -13,25 +16,36 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ArticleService implements IArticleService {
     private final IArticleRepository repository;
     private final ArticleAdapter adapter;
-
-
+    private final ISEOKeywordRepository seoKeywordRepository;
+    private final KeywordAdapter keywordAdapter;
     @Autowired
-    public ArticleService(IArticleRepository repository, ArticleAdapter adapter) {
+    public ArticleService(IArticleRepository repository, ArticleAdapter adapter,ISEOKeywordRepository seoKeywordRepository,KeywordAdapter keywordAdapter) {
         this.repository = repository;
         this.adapter = adapter;
+        this.seoKeywordRepository=seoKeywordRepository;
+        this.keywordAdapter = keywordAdapter;
     }
 
     @Override
     public ArticleDTO save(ArticleDTO article) {
-        return adapter.getDto(repository.save(adapter.getEntity(article)));
+        ArticleEntity entity = adapter.getEntity(article);
+        Set<SeoKeywordEntity> keywords = new HashSet<>(article.getSeoKeywords().size());
+        article.getSeoKeywords().forEach(keyword->{
+            SeoKeywordEntity keywordEntity = keywordAdapter.getEntity(keyword);
+            if (keywordEntity.getId() == null){
+                seoKeywordRepository.save(keywordEntity);
+                keywordEntity = seoKeywordRepository.findByKeyword(keyword).orElse(keywordEntity);
+            }
+            keywords.add(keywordEntity);
+        });
+        entity.setSeoKeywords(keywords);
+        return adapter.getDto(repository.save(entity));
     }
 
     @Override

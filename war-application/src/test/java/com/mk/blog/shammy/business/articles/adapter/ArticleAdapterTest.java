@@ -12,7 +12,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -60,7 +62,7 @@ public class ArticleAdapterTest {
         entity.setSummary("summary");
         entity.setCreateDate(LocalDate.now());
         entity.setCategory("category");
-        List<SeoKeywordEntity> keywords = new ArrayList<SeoKeywordEntity>();
+        Set<SeoKeywordEntity> keywords = new HashSet<SeoKeywordEntity>();
         keywords.add(new SeoKeywordEntity("key1"));
         keywords.add(new SeoKeywordEntity("key2"));
         entity.setSeoKeywords(keywords);       // entity.setAuthor(new AuthorEntity());
