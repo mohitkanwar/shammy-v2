@@ -24,11 +24,12 @@ public class SeoKeywordService implements ISeoKeywordService {
 
     @Override
     public String save(String keyword) {
-        Optional<SeoKeywordEntity> keywordEntityOptional = seoKeywordRepository.findByKeyword(keyword);
-        SeoKeywordEntity entity = null;
-        if(!keywordEntityOptional.isPresent()){
-            entity = seoKeywordRepository.save(keywordAdapter.getEntity(keyword));
-        }
-        return keywordAdapter.getDto(keywordEntityOptional.orElse(entity));
+        return keywordAdapter.getDto(
+                seoKeywordRepository.save(
+                        keywordAdapter.getEntity(
+                                keyword.toLowerCase()
+                        )
+                )
+        );
     }
 }
