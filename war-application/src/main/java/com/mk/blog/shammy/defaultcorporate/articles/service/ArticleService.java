@@ -5,6 +5,7 @@ import com.mk.blog.shammy.business.articles.adapter.KeywordAdapter;
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.model.ArticleEntity;
 import com.mk.blog.shammy.business.articles.model.SeoKeywordEntity;
+import com.mk.blog.shammy.business.articles.publishing.PublishingState;
 import com.mk.blog.shammy.business.articles.repository.IArticleRepository;
 import com.mk.blog.shammy.business.articles.repository.ISEOKeywordRepository;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
@@ -60,6 +61,18 @@ public class ArticleService implements IArticleService {
         response.setTotalsize(articlePage.getTotalElements());
         return response;
     }
+    @Override
+    public PaginatedListResponse<ArticleDTO> getNonDeletedArticles(int pageSize, int pageNumber, String sortBy) {
+        PaginatedListResponse<ArticleDTO> response = new PaginatedListResponse<>();
+        List<ArticleDTO> articlesList = new ArrayList<>();
+        Page<ArticleEntity> articlePage = repository.findArticleEntitiesByPublishingStateIsNot(PublishingState.DELETED.getId(),PageRequest.of(pageNumber,pageSize, Sort.by(sortBy)));
+        articlePage.forEach(entity -> articlesList.add(adapter.getDto(entity)));
+        response.setDataList(articlesList);
+        response.setPageNumber(articlePage.getNumber());
+        response.setPageSize(articlePage.getSize());
+        response.setTotalsize(articlePage.getTotalElements());
+        return response;
+    }
 
     @Override
     public Optional<ArticleDTO> getArticleById(long id) {
@@ -69,6 +82,14 @@ public class ArticleService implements IArticleService {
             dto = adapter.getDto(entity.get());
         }
         return dto == null ? Optional.empty() : Optional.of(dto);
+    }
+
+    @Override
+    public void softDelete(long id) {
+        repository.findById(id).ifPresent(articleEntity -> {
+            articleEntity.setPublishingState(PublishingState.DELETED);
+            repository.save(articleEntity);
+        });
     }
 
     @Override

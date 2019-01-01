@@ -35,6 +35,7 @@ public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, Article
         entity.setLastModifiedDate(d.getLastModifiedDate());
         entity.setSeoKeywords(d.getSeoKeywords().stream().map(keywordAdapter::getEntity).collect(Collectors.toSet()));
         entity.setCategory(d.getCategory());
+        entity.setPublishingState(d.getPublishingState());
         return entity;
     }
 
@@ -49,6 +50,7 @@ public class ArticleAdapter implements EntityToDtoAdapter<ArticleEntity, Article
         dto.setLastModifiedDate(entity.getLastModifiedDate());
         dto.setSeoKeywords(entity.getSeoKeywords().stream().map(keywordAdapter::getDto).collect(Collectors.toList()));
         dto.setCategory(entity.getCategory());
+        dto.setPublishingState(entity.getPublishingState());
         return dto;
     }
 }

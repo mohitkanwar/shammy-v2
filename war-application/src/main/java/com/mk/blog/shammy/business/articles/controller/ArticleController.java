@@ -2,6 +2,7 @@ package com.mk.blog.shammy.business.articles.controller;
 
 import com.mk.blog.shammy.business.articles.dto.ArticleDTO;
 import com.mk.blog.shammy.business.articles.errors.ArticleErrors;
+import com.mk.blog.shammy.business.articles.publishing.PublishingState;
 import com.mk.blog.shammy.business.articles.service.IArticleService;
 import com.mk.blog.shammy.framework.controller.DataResponse;
 import com.mk.blog.shammy.framework.controller.ErrorResponse;
@@ -60,7 +61,7 @@ public class ArticleController {
                                                          @RequestParam(name = "sortBy",required = false,defaultValue = "id") String sortBy) {
         PaginatedListResponse<ArticleDTO> response ;
         try {
-            response = service.getArticles(pageSize,pageNumber,sortBy);
+            response = service.getNonDeletedArticles(pageSize,pageNumber,sortBy);
             response.setStatus(StatusResponse.SUCCESS);
         } catch (RuntimeException e) {
             response = new PaginatedListResponse<>();
@@ -78,6 +79,9 @@ public class ArticleController {
     public DataResponse<ArticleDTO> createArticle(@RequestBody ArticleDTO article) {
         DataResponse<ArticleDTO> response = new DataResponse<>();
         try {
+            if(article.getPublishingState()==null){
+                article.setPublishingState(PublishingState.DRAFT);
+            }
             response.setData(service.save(article));
             response.setStatus(StatusResponse.SUCCESS);
         } catch (RuntimeException e) {
@@ -89,7 +93,7 @@ public class ArticleController {
     @DeleteMapping("/{id}")
     public  StatusResponse deleteArticle(@PathVariable long id) {
         try {
-            service.delete(id);
+            service.softDelete(id);
             System.out.println(StatusResponse.SUCCESS);
             return StatusResponse.SUCCESS;
         } catch (RuntimeException e) {

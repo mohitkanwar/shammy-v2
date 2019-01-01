@@ -1,6 +1,8 @@
 package com.mk.blog.shammy.business.articles.dto;
 
 
+import com.mk.blog.shammy.business.articles.publishing.PublishingState;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +17,7 @@ public class ArticleDTO {
     private LocalDate lastModifiedDate;
     private List<String> seoKeywords;
     private String category;
+    private PublishingState publishingState;
 
     public Long getId() {
         return id;
@@ -111,5 +114,13 @@ public class ArticleDTO {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getTitle(), getBody(), getSummary(), getCreateDate(), getLastModifiedDate(), getSeoKeywords(), getCategory());
+    }
+
+    public PublishingState getPublishingState() {
+        return publishingState;
+    }
+
+    public void setPublishingState(PublishingState publishingState) {
+        this.publishingState = publishingState;
     }
 }

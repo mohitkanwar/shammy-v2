@@ -1,12 +1,12 @@
 package com.mk.blog.shammy.business.articles.model;
 
+import com.mk.blog.shammy.business.articles.publishing.PublishingState;
 import com.mk.blog.shammy.framework.user.model.UserEntity;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -29,6 +29,8 @@ public class ArticleEntity {
     @JoinTable(name = "ARTICLE_SEO_KEYWORDS", joinColumns = { @JoinColumn(name = "ARTICLE_ID") }, inverseJoinColumns = { @JoinColumn(name = "KEYWORD_ID") })
     private Set<SeoKeywordEntity> seoKeywords;
     private String category;
+    private Long publishingState;
+
 
     public Long getId() {
         return id;
@@ -125,6 +127,17 @@ public class ArticleEntity {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getTitle(), getBody(), getSummary(), getAuthor(), getCreateDate(), getLastModifiedDate(), getSeoKeywords(), getCategory());
+    }
+
+    public PublishingState getPublishingState() {
+       return PublishingState.valueOf(this.publishingState);
+    }
+
+    public void setPublishingState(PublishingState publishingState) {
+        if(publishingState==null){
+            this.publishingState=null;
+        }
+        this.publishingState = publishingState.getId();
     }
 }
 

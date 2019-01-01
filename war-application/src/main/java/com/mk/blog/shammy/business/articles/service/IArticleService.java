@@ -12,7 +12,10 @@ public interface IArticleService {
 
     PaginatedListResponse<ArticleDTO> getArticles(int pageSize, int pageNumber, String sortBy);
 
+    PaginatedListResponse<ArticleDTO> getNonDeletedArticles(int pageSize, int pageNumber, String sortBy);
+
     Optional<ArticleDTO> getArticleById(long id);
 
+    void softDelete(long id);
     void delete(long id);
 }
