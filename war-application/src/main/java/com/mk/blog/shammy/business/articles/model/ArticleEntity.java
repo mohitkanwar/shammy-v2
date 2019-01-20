@@ -4,6 +4,7 @@ import com.mk.blog.shammy.business.articles.publishing.PublishingState;
 import com.mk.blog.shammy.framework.user.model.UserEntity;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.security.access.method.P;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -134,10 +135,7 @@ public class ArticleEntity {
     }
 
     public void setPublishingState(PublishingState publishingState) {
-        if(publishingState==null){
-            this.publishingState=null;
-        }
-        this.publishingState = publishingState.getId();
+        this.publishingState=(publishingState==null)?null: publishingState.getId();
     }
 }
 

@@ -67,6 +67,7 @@ public class ArticleAdapterTest {
         keywords.add(new SeoKeywordEntity("key2"));
         entity.setSeoKeywords(keywords);       // entity.setAuthor(new AuthorEntity());
         entity.setLastModifiedDate(LocalDate.now());
+        entity.setPublishingState(null);
         return entity;
     }
 

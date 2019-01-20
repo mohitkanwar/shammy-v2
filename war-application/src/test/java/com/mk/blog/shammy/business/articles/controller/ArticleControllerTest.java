@@ -48,7 +48,7 @@ public class ArticleControllerTest {
         mockArticle.setId(1L);
         mockArticle.setTitle("Mock Title");
         Optional<ArticleDTO> optionalArticleDTO = Optional.of(mockArticle);
-        when(service.getArticleById(1)).thenThrow(new NullPointerException());
+        when(service.getArticleById(1L)).thenThrow(new NullPointerException());
         DataResponse<ArticleDTO> articleResponse = controller.getArticleById(1);
         assertEquals(StatusResponse.FAILURE, articleResponse.getStatus());
     }
@@ -62,7 +62,7 @@ public class ArticleControllerTest {
         articleDTOList.add(mockArticle);
         PaginatedListResponse<ArticleDTO> mockResponse = new PaginatedListResponse<>();
         mockResponse.setDataList(articleDTOList);
-        when(service.getArticles(1,1,"id")).thenReturn(mockResponse);
+        when(service.getNonDeletedArticles(1,1,"id")).thenReturn(mockResponse);
         PaginatedListResponse<ArticleDTO> response = controller.getArticles(1,1,"id");
         assertEquals(StatusResponse.SUCCESS, response.getStatus());
         assertEquals(articleDTOList, response.getDataList());
@@ -121,7 +121,7 @@ public class ArticleControllerTest {
         ArticleDTO mockArticle = new ArticleDTO();
         mockArticle.setId(1L);
         mockArticle.setTitle("Mock Title");
-        Mockito.doThrow(new NullPointerException()).when(service).delete(1l);
+        Mockito.doThrow(new NullPointerException()).when(service).softDelete(1l);
         StatusResponse response = controller.deleteArticle(1l);
         assertEquals(StatusResponse.FAILURE, response);
     }
