@@ -4,6 +4,7 @@ package com.mk.blog.shammy.business.articles.dto;
 import com.mk.blog.shammy.business.articles.publishing.PublishingState;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -84,6 +85,9 @@ public class ArticleDTO {
     }
 
     public List<String> getSeoKeywords() {
+        if(seoKeywords==null){
+            seoKeywords = new ArrayList<>();
+        }
         return seoKeywords;
     }
 
