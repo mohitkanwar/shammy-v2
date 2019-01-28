@@ -8,7 +8,7 @@ public class DefaultPasswordEncoderServiceImpl implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence charSequence) {
-
+        //TODO encode the passwords
         return charSequence.toString();
     }
 

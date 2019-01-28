@@ -13,5 +13,6 @@ public class DefaultDaoAuthenticationProviderService extends DaoAuthenticationPr
     public DefaultDaoAuthenticationProviderService(@Autowired PasswordEncoder passwordEncoder, @Autowired UserDetailsService detailsService) {
         super();
         this.setUserDetailsService(detailsService);
+        this.setPasswordEncoder(passwordEncoder);
     }
 }
